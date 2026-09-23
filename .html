@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<h1 class="titulo-pagina">Cinebox</h1>
+
+<header class="barra-principal">
+  <nav class="navegacion">
+    <span class="titulo">Buscar película</span>
+    <form action="/buscar" method="GET" class="seccion-buscar">
+      <input type="search" name="q" placeholder="Buscar...">
+      <button type="submit">Buscar</button>
+    </form>
+
+    <ul class="menu-navegacion">
+      <span class="Titulo">Perfil</span>
+      <li><a href="/notificaciones">Notificaciones</a></li>
+      <li><a href="/vistas">Películas vistas</a></li>
+      <li><a href="/watchlist">Watchlist</a></li>
+      <li><a href="/amigos">Amigos</a></li>
+    </ul>
+    
+    <div class="botones-acceso">
+      <span class="Titulo">Identificate</span>
+      <a href="/login" class="btn-login">Iniciar sesión</a>
+      <a href="/registro" class="btn-registro">Registrarse</a>
+    </div>
+
+  </nav>
+</header>
+
+<main class="contenedor-principal">
+
+  <section class="seccion-populares">
+    <h2>Películas populares esta semana</h2>
+    
+    <div class="carrusel-peliculas">
+      
+      <article class="Posterpelicula">
+        <h3>El Padrino</h3>
+        <img src="poster1.jpg" alt="Póster de la película">
+        <p class="puntuacion">4.8</p>
+      </article>
+
+      <article class="tarjeta-pelicula">
+        <h3>Dune: Parte 2</h3>
+        <img src="poster2.jpg" alt="Póster de la película">
+        <p class="puntuacion">4.6</p>
+      </article>
+  </section>
+
+  <aside class="actividad-amigos">
+    <h2>Actividad de tus amigos</h2>
+    
+    </aside>
