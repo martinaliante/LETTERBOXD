@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cinebox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="pagina-principal">
+  <h1 class="titulo-pagina">Cinebox</h1>
+
+<header class="barra-principal">
+  <nav class="navegacion">
+    <span class="titulo">Buscar película</span>
+    <form action="/buscar" method="GET" class="seccion-buscar">
+      <input type="search" name="q" placeholder="Buscar...">
+      <button type="submit">Buscar</button>
+    </form>
+
+    <span class="Titulo">Perfil</span>
+    <ul class="menu-navegacion">
+      <li><a href="notificaciones.html">Notificaciones</a></li>
+      <li><a href="/vistas">Películas vistas</a></li>
+      <li><a href="/watchlist">Watchlist</a></li>
+      <li><a href="/amigos">Amigos</a></li>
+    </ul>
+    
+    <div class="botones-acceso">
+      <span class="Titulo">Identifícate</span>
+      <a href="login.html" class="btn-login">Iniciar sesión</a>
+      <a href="register.html" class="btn-registro">Registrarse</a>
+    </div>
+
+  </nav>
+</header>
+
+<main class="contenedor-principal">
+
+  <section class="seccion-populares">
+    <h2>Películas populares esta semana</h2>
+    
+    <div class="carrusel-peliculas">
+      
+      <article class="Posterpelicula">
+        <h3>El Padrino</h3>
+        <img src="posterpadrino.png" alt="Póster de la película">
+        <p class="puntuacion">4.8</p>
+      </article>
+
+      <article class="tarjeta-pelicula">
+        <h3>Dune: Parte 2</h3>
+        <img src="posterdune2.png" alt="Póster de la película">
+        <p class="puntuacion">4.6</p>
+      </article>
+    </div>
+  </section>
+
+  <aside class="actividad-amigos">
+    <h2>Actividad de tus amigos</h2>
+  </aside>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
+    
