@@ -25,8 +25,7 @@ Instalación
 
 Ejecución
 
-1. Abrir el archivo `index.html`.
-2. Hacer clic derecho sobre el archivo.
-3. Seleccionar `Open with Live Server`.
-4. La aplicación se abrirá en el navegador mediante una dirección local, por ejemplo:
-   `http://127.0.0.1:5500/index.html`
+1. Abrir el archivo `index.html`
+2. Hacer clic derecho sobre el archivo
+3. Seleccionar `Open with Live Server`
+4. La aplicación se abrirá en el navegador mediante una dirección local
