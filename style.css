@@ -97,9 +97,9 @@ body {
     font-size: 14px;
 
 }
-/* PAGINA PRINCIPAL */
 
 .pagina-principal {
+    /* estilos generales de la pagina */
     display: block;
     min-height: 100vh;
     height: auto;
@@ -128,7 +128,7 @@ body {
     gap: 20px;
     flex-wrap: wrap;
 }
-
+/* estilo del buscador */
 .pagina-principal .seccion-buscar {
     display: flex;
     gap: 5px;
@@ -178,7 +178,7 @@ body {
 }
 
 .pagina-principal .botones-acceso a:hover {
-    background-color: #0056b3;
+    background-color: #0d023b;
 }
 
 .pagina-principal .contenedor-principal {
@@ -190,7 +190,7 @@ body {
 .pagina-principal .seccion-populares h2 {
     text-align: center;
 }
-
+/* dejo las peliculas como   tarjetas, algo mas lindo de ver */
 .pagina-principal .carrusel-peliculas {
     display: flex;
     justify-content: center;
