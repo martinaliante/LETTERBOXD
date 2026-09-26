@@ -1,5 +1,5 @@
 ### Nombre del proyecto: Cinebox
-### Integrantes: Martín Aliante, Ethan Araya, Mateo (...)
+### Integrantes: Martín Aliante, Ethan Araya, Mateo Panes
 [Descripción]
 Cinebox es una red social para compartir, puntuar y reseñar peliculas,
 te permite llevar un registro personal de las peliculas que has visto o
@@ -28,4 +28,4 @@ Ejecución
 1. Abrir el archivo `index.html`
 2. Hacer clic derecho sobre el archivo
 3. Seleccionar `Open with Live Server`
-4. La aplicación se abrirá en el navegador mediante una dirección local
+4. La aplicación se abrirá en el navegador 
