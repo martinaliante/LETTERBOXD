@@ -38,27 +38,35 @@
   <section class="seccion-populares">
     <h2>Películas populares esta semana</h2>
     
-    <div class="carrusel-peliculas">
-      
-      <article class="Posterpelicula">
-        <h3>El Padrino</h3>
-        <img src="posterpadrino.png" alt="Póster de la película">
-        <p class="puntuacion">4.8</p>
-      </article>
+<div class="carrusel-peliculas" x-data="cinebox()">
 
-      <article class="tarjeta-pelicula">
-        <h3>Dune: Parte 2</h3>
-        <img src="posterdune2.png" alt="Póster de la película">
-        <p class="puntuacion">4.6</p>
-      </article>
-    </div>
+    <template x-for="pelicula in peliculas" :key="pelicula.id">
+        <article class="tarjeta-pelicula">
+            <h3 x-text="pelicula.titulo"></h3>
+
+            <img
+                :src="pelicula.poster"
+                :alt="'Póster de ' + pelicula.titulo"
+            >
+
+            <p class="puntuacion" x-text="pelicula.puntuacion"></p>
+        </article>
+    </template>
+
+</div>
   </section>
 
   <aside class="actividad-amigos">
     <h2>Actividad de tus amigos</h2>
   </aside>
 </main>
+
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
 <script src="script.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
 </body>
 </html>
     
