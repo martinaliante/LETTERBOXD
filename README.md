@@ -28,4 +28,8 @@ Ejecución
 1. Abrir el archivo `index.html`
 2. Hacer clic derecho sobre el archivo
 3. Seleccionar `Open with Live Server`
-4. La aplicación se abrirá en el navegador 
+4. La aplicación se abrirá en el navegador
+
+Inicio de sesión
+
+El registro guarda las cuentas en el almacenamiento local del navegador y el inicio de sesión permite entrar con esas cuentas desde el mismo navegador. Es una autenticación de demostración para el proyecto.

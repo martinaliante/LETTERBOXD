@@ -2,36 +2,37 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cinebox</title>
   <link rel="stylesheet" href="styleindex.css">
+  <link rel="stylesheet" href="header.css">
 </head>
 <body class="pagina-principal">
-  <h1 class="titulo-pagina">Cinebox</h1>
+  <header class="cabecera-sitio">
+    <a class="marca-sitio" href="index.html">Cinebox</a>
+    <nav class="navegacion-sitio" aria-label="Navegación principal">
+      <span class="etiqueta-navegacion">Buscar película</span>
+      <form action="login.html" method="GET" class="busqueda-sitio">
+        <input type="search" name="q" placeholder="Buscar..." aria-label="Buscar película">
+        <button type="submit">Buscar</button>
+      </form>
 
-<header class="barra-principal">
-  <nav class="navegacion">
-    <span class="titulo">Buscar película</span>
-    <form action="login.html" method="GET" class="seccion-buscar">
-      <input type="search" name="q" placeholder="Buscar...">
-      <button type="submit">Buscar</button>
-    </form>
+      <a class="boton-inicio" href="index.html" aria-current="page">Inicio</a>
+      <ul class="menu-sitio">
+        <li><a href="notificaciones.html">Notificaciones</a></li>
+        <li><a href="vistas.html">Películas vistas</a></li>
+        <li><a href="watchlist.html">Watchlist</a></li>
+        <li><a href="amigos.html">Amigos</a></li>
+      </ul>
 
-    <span class="Titulo">Perfil</span>
-    <ul class="menu-navegacion">
-      <li><a href="notificaciones.html">Notificaciones</a></li>
-      <li><a href="vistas.html">Películas vistas</a></li>
-      <li><a href="watchlist.html">Watchlist</a></li>
-      <li><a href="amigos.html">Amigos</a></li>
-    </ul>
-    
-    <div class="botones-acceso">
-      <span class="Titulo">Identifícate</span>
-      <a href="login.html" class="btn-login">Iniciar sesión</a>
-      <a href="register.html" class="btn-registro">Registrarse</a>
-    </div>
-
-  </nav>
-</header>
+      <div class="botones-acceso-sitio" data-auth-controls>
+        <span class="etiqueta-navegacion">Identifícate</span>
+        <a href="login.html">Iniciar sesión</a>
+        <a href="register.html">Registrarse</a>
+      </div>
+      <span class="usuario-sesion-sitio" data-auth-user hidden></span>
+    </nav>
+  </header>
 
 <main class="contenedor-principal">
 
@@ -58,6 +59,20 @@
 
   <aside class="actividad-amigos">
     <h2>Actividad de tus amigos</h2>
+    <article class="publicacion-amigo">
+      <img
+        class="poster-actividad"
+        src="posterfiesta.png"
+        alt="Póster de La fiesta de las salchichas"
+      >
+      <div class="pie-publicacion">
+        <div class="autor-publicacion">
+          <img src="fotochuyete.png" alt="" class="avatar-publicacion">
+          <span>chuyete</span>
+        </div>
+        <p class="puntuacion-publicacion">4/5</p>
+      </div>
+    </article>
   </aside>
 </main>
 

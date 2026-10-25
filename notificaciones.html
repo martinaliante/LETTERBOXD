@@ -2,25 +2,54 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Notificaciones</title>
+    <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <ul>
-    <li class="item-notificacion">
-      <div class="texto-notificacion">
-        <div class="detalle-actividad">
-          <div>Hoy <strong>chuyete</strong> vio:</div>
+<body class="pagina-notificaciones">
+  <header class="cabecera-sitio">
+    <a class="marca-sitio" href="index.html">Cinebox</a>
+    <nav class="navegacion-sitio" aria-label="Navegación principal">
+      <span class="etiqueta-navegacion">Buscar película</span>
+      <form action="login.html" method="GET" class="busqueda-sitio">
+        <input type="search" name="q" placeholder="Buscar..." aria-label="Buscar película">
+        <button type="submit">Buscar</button>
+      </form>
+      <a class="boton-inicio" href="index.html">Inicio</a>
+      <ul class="menu-sitio">
+        <li><a href="notificaciones.html" aria-current="page">Notificaciones</a></li>
+        <li><a href="vistas.html">Películas vistas</a></li>
+        <li><a href="watchlist.html">Watchlist</a></li>
+        <li><a href="amigos.html">Amigos</a></li>
+      </ul>
+      <div class="botones-acceso-sitio" data-auth-controls>
+        <span class="etiqueta-navegacion">Identifícate</span>
+        <a href="login.html">Iniciar sesión</a>
+        <a href="register.html">Registrarse</a>
+      </div>
+      <span class="usuario-sesion-sitio" data-auth-user hidden></span>
+    </nav>
+  </header>
+  <main class="contenido-notificaciones">
+    <h1>Notificaciones</h1>
+    <ul class="lista-notificaciones">
+      <li class="item-notificacion">
+        <div class="texto-notificacion">
+          <div class="detalle-actividad">
+            <div>Hoy <strong>chuyete</strong> vio:</div>
 
-          <img src="posterfiesta.png" alt="Póster" class="poster-salch">
+            <img src="posterfiesta.png" alt="Póster de La fiesta de las salchichas" class="poster-salch">
       
-          <div class="info-pelicula">
-            <strong>La fiesta de las salchichas</strong><br>
-            <span class="puntuacion">4/5</span>
+            <div class="info-pelicula">
+              <strong>La fiesta de las salchichas</strong><br>
+              <span class="puntuacion">4/5</span>
+            </div>
           </div>
         </div>
-      </div>
-    </li>
-  </ul>
+      </li>
+    </ul>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>

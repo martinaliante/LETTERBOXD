@@ -1,11 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     background: #f5f5f5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
-
+    margin: 0;
 }
 
 .login-box{
@@ -234,15 +230,50 @@ body {
 }
 
 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+ul {
+    margin: 24px 0;
+    padding: 0 16px;
+}
+
+.pagina-notificaciones {
+    min-height: 100vh;
+}
+
+.contenido-notificaciones {
+    max-width: 900px;
+    margin: 32px auto;
+    padding: 0 16px;
+}
+
+.contenido-notificaciones h1 {
+    margin: 0 0 20px;
+    font-size: clamp(28px, 5vw, 36px);
+}
+
+.lista-notificaciones {
+    margin: 0;
+    padding: 0;
+}
+
 /* estilo para las notificaciones */
 .item-notificacion {
     list-style: none;
-    background-color: rgba(206, 193, 193, 0.945);
-    max-width: 700px;
-    margin: 30px auto;
+    background-color: #fff;
+    max-width: 900px;
+    width: 100%;
+    margin: 0;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 8px #ccc;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 .texto-notificacion {
@@ -252,7 +283,14 @@ body {
 }
 
 .detalle-actividad {
-    margin-bottom: 15px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 8px 16px;
+}
+
+.detalle-actividad > div:first-child {
+    grid-column: 1 / -1;
 }
 
 .poster-salch {
@@ -269,4 +307,27 @@ body {
 .puntuacion {
     margin-top: 10px;
     font-weight: bold;
+}
+
+@media (max-width: 480px) {
+    .item-notificacion {
+        padding: 16px;
+    }
+
+    .contenido-notificaciones {
+        margin: 24px auto;
+    }
+
+    .detalle-actividad {
+        gap: 8px 12px;
+    }
+
+    .poster-salch {
+        width: 96px;
+        height: 144px;
+    }
+
+    .info-pelicula {
+        font-size: 16px;
+    }
 }

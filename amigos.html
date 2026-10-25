@@ -2,8 +2,14 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Amigos</title>
+  <link rel="stylesheet" href="header.css">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -11,7 +17,7 @@
     }
 
     main {
-      max-width: 300px;
+      width: min(calc(100% - 32px), 300px);
       margin: 40px auto;
       text-align: center;
     }
@@ -44,9 +50,44 @@
       font-weight: bold;
       color: #222;
     }
+
+    @media (max-width: 480px) {
+      main {
+        margin-top: 24px;
+      }
+
+      .avatar-block img {
+        width: min(180px, 60vw);
+        height: auto;
+        aspect-ratio: 1;
+      }
+    }
   </style>
 </head>
 <body>
+  <header class="cabecera-sitio">
+    <a class="marca-sitio" href="index.html">Cinebox</a>
+    <nav class="navegacion-sitio" aria-label="Navegación principal">
+      <span class="etiqueta-navegacion">Buscar película</span>
+      <form action="login.html" method="GET" class="busqueda-sitio">
+        <input type="search" name="q" placeholder="Buscar..." aria-label="Buscar película">
+        <button type="submit">Buscar</button>
+      </form>
+      <a class="boton-inicio" href="index.html">Inicio</a>
+      <ul class="menu-sitio">
+        <li><a href="notificaciones.html">Notificaciones</a></li>
+        <li><a href="vistas.html">Películas vistas</a></li>
+        <li><a href="watchlist.html">Watchlist</a></li>
+        <li><a href="amigos.html" aria-current="page">Amigos</a></li>
+      </ul>
+      <div class="botones-acceso-sitio" data-auth-controls>
+        <span class="etiqueta-navegacion">Identifícate</span>
+        <a href="login.html">Iniciar sesión</a>
+        <a href="register.html">Registrarse</a>
+      </div>
+      <span class="usuario-sesion-sitio" data-auth-user hidden></span>
+    </nav>
+  </header>
   <main>
     <h1>Amigos</h1>
     <div class="avatar-block">
@@ -54,5 +95,6 @@
       <p class="usuario">chuyete</p>
     </div>
   </main>
+  <script src="script.js"></script>
 </body>
 </html>

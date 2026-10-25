@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="stylelogin.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pen</title>
+    <title>Registrarse - Cinebox</title>
   </head>
   <body>
-    <div class="register-box">
-        <h2>Registrarse</h2>
-        <input type="text" id="create username" placeholder="Crear usuario" required>
-        <input type="password" id="create password" placeholder="Crear contraseña" required>
-      <input type="password" id="repeat password" placeholder="Repetir contraseña" required>
-        <button onclick="register()"> Registrarse</button>
-        <p class="message" id="message"></p>
-    </div>
+    <main class="register-box">
+      <h2>Registrarse</h2>
+      <form id="register-form">
+        <input type="text" id="create-username" placeholder="Crear usuario" autocomplete="username" required>
+        <input type="password" id="create-password" placeholder="Crear contraseña" autocomplete="new-password" required>
+        <input type="password" id="repeat-password" placeholder="Repetir contraseña" autocomplete="new-password" required>
+        <button type="submit">Registrarse</button>
+      </form>
+      <a href="login.html">Ya tengo una cuenta</a>
+      <p><a class="auth-home-link" href="index.html">Volver al inicio</a></p>
+      <p class="message" id="message" aria-live="polite"></p>
+    </main>
 
     <script src="./script.js"></script>
   </body>
