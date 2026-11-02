@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Watchlist</title>
-  <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="css/header.css">
   <style>
     * {
       box-sizing: border-box;
@@ -78,7 +78,7 @@
     <a class="marca-sitio" href="index.html">Cinebox</a>
     <nav class="navegacion-sitio" aria-label="Navegación principal">
       <span class="etiqueta-navegacion">Buscar película</span>
-      <form action="login.html" method="GET" class="busqueda-sitio">
+      <form action="resultados.html" method="GET" class="busqueda-sitio">
         <input type="search" name="q" placeholder="Buscar..." aria-label="Buscar película">
         <button type="submit">Buscar</button>
       </form>
@@ -100,19 +100,25 @@
   <main>
     <h1>Watchlist</h1>
 
-    <section class="watchlist">
+    <section class="watchlist" id="watchlist-peliculas">
       <article class="pelicula">
-        <img src="postershrek.png" alt="Poster Shrek">
-        <h2>Shrek</h2>
+        <a href="pelicula.html?id=6" style="color: inherit; text-decoration: none;">
+          <img src="postershrek.png" alt="Póster Shrek">
+          <h2>Shrek</h2>
+        </a>
       </article>
 
       <article class="pelicula">
-        <img src="posteroppenheimer.png" alt="Poster Oppenheimer">
-        <h2>Oppenheimer</h2>
+        <a href="pelicula.html?id=7" style="color: inherit; text-decoration: none;">
+          <img src="posteroppenheimer.png" alt="Póster Oppenheimer">
+          <h2>Oppenheimer</h2>
+        </a>
       </article>
 
     </section>
   </main>
-  <script src="script.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/watchlist.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

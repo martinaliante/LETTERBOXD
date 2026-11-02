@@ -37,6 +37,12 @@
     margin: 15px;
 }
 
+.pagina-principal .enlace-pelicula {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
 .pagina-principal .carrusel-peliculas article img {
     width: 100%;
     aspect-ratio: 2 / 3;

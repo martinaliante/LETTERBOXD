@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Notificaciones</title>
-    <link rel="stylesheet" href="header.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="pagina-notificaciones">
   <header class="cabecera-sitio">
     <a class="marca-sitio" href="index.html">Cinebox</a>
     <nav class="navegacion-sitio" aria-label="Navegación principal">
       <span class="etiqueta-navegacion">Buscar película</span>
-      <form action="login.html" method="GET" class="busqueda-sitio">
+      <form action="resultados.html" method="GET" class="busqueda-sitio">
         <input type="search" name="q" placeholder="Buscar..." aria-label="Buscar película">
         <button type="submit">Buscar</button>
       </form>
@@ -39,10 +39,12 @@
           <div class="detalle-actividad">
             <div>Hoy <strong>chuyete</strong> vio:</div>
 
-            <img src="posterfiesta.png" alt="Póster de La fiesta de las salchichas" class="poster-salch">
+            <a href="pelicula.html?id=3">
+              <img src="posterfiesta.png" alt="Póster de La fiesta de las salchichas" class="poster-salch">
+            </a>
       
             <div class="info-pelicula">
-              <strong>La fiesta de las salchichas</strong><br>
+              <a href="pelicula.html?id=3"><strong>La fiesta de las salchichas</strong></a><br>
               <span class="puntuacion">4/5</span>
             </div>
           </div>
@@ -50,6 +52,6 @@
       </li>
     </ul>
   </main>
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

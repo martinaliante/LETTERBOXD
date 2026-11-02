@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Buscar películas - Cinebox</title>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="pagina-resultados">
+  <header class="cabecera-sitio">
+    <a class="marca-sitio" href="index.html">Cinebox</a>
+    <nav class="navegacion-sitio" aria-label="Navegación principal">
+      <span class="etiqueta-navegacion">Buscar película</span>
+      <form action="resultados.html" method="GET" class="busqueda-sitio">
+        <input type="search" name="q" placeholder="Buscar..." aria-label="Buscar película" required>
+        <button type="submit">Buscar</button>
+      </form>
+      <a class="boton-inicio" href="index.html">Inicio</a>
+      <ul class="menu-sitio">
+        <li><a href="notificaciones.html">Notificaciones</a></li>
+        <li><a href="vistas.html">Películas vistas</a></li>
+        <li><a href="watchlist.html">Watchlist</a></li>
+        <li><a href="amigos.html">Amigos</a></li>
+      </ul>
+      <div class="botones-acceso-sitio" data-auth-controls>
+        <span class="etiqueta-navegacion">Identifícate</span>
+        <a href="login.html">Iniciar sesión</a>
+        <a href="register.html">Registrarse</a>
+      </div>
+      <span class="usuario-sesion-sitio" data-auth-user hidden></span>
+    </nav>
+  </header>
+
+  <main class="contenido-resultados">
+    <h1 id="titulo-resultados">Resultados de búsqueda</h1>
+    <section id="resultados-peliculas" class="resultados-peliculas" aria-live="polite"></section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/busqueda.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
