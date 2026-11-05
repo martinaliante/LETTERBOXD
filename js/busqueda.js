@@ -6,6 +6,19 @@ function mostrarMensajeResultados(contenedor, texto) {
     contenedor.appendChild(mensaje);
 }
 
+function mostrarErrorResultados(contenedor, texto, reintentar) {
+    contenedor.replaceChildren();
+    const mensaje = document.createElement("div");
+    mensaje.className = "mensaje-resultados estado-error";
+    mensaje.appendChild(document.createTextNode(texto));
+    const boton = document.createElement("button");
+    boton.type = "button";
+    boton.textContent = "Reintentar";
+    boton.addEventListener("click", reintentar);
+    mensaje.appendChild(boton);
+    contenedor.appendChild(mensaje);
+}
+
 function crearResultado(pelicula) {
     const tarjeta = document.createElement("article");
     tarjeta.className = "resultado-pelicula";
@@ -54,10 +67,12 @@ async function cargarResultados() {
 
     if (!consulta) {
         titulo.textContent = "Busca una película";
+        mostrarMensajeResultados(contenedor, "Escribe el nombre de una película para comenzar.");
         return;
     }
 
     titulo.textContent = `Resultados para "${consulta}"`;
+    mostrarMensajeResultados(contenedor, "Cargando películas...");
 
     try {
         const peliculas = await obtenerPeliculas();
@@ -76,7 +91,11 @@ async function cargarResultados() {
         contenedor.replaceChildren(...resultados.map(crearResultado));
     } catch (error) {
         console.error("No se pudieron cargar los resultados:", error);
-        mostrarMensajeResultados(contenedor, "No se pudieron cargar las películas. Intenta nuevamente.");
+        mostrarErrorResultados(
+            contenedor,
+            "No se pudieron cargar las películas.",
+            cargarResultados
+        );
     }
 }
 

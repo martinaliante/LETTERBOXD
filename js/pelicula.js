@@ -157,6 +157,7 @@ function renderizarPelicula(pelicula) {
 async function cargarPelicula() {
     const id = Number(new URLSearchParams(window.location.search).get("id"));
     const detalle = document.getElementById("detalle-pelicula");
+    mostrarMensaje("Cargando película...");
     try {
         const peliculas = await obtenerPeliculas();
         const pelicula = peliculas.find(item => item.id === id);
@@ -165,11 +166,17 @@ async function cargarPelicula() {
             return;
         }
         document.title = `${pelicula.titulo} - Cinebox`;
+        mostrarMensaje("");
         renderizarPelicula(pelicula);
     } catch (error) {
         console.error("No se pudo cargar la película:", error);
         detalle.replaceChildren();
         mostrarMensaje("No se pudo cargar la película. Intenta nuevamente.", true);
+        const boton = document.createElement("button");
+        boton.type = "button";
+        boton.textContent = "Reintentar";
+        boton.addEventListener("click", cargarPelicula);
+        detalle.appendChild(boton);
     }
 }
 

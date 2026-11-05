@@ -105,24 +105,11 @@
 	<main>
 		<h1>Películas vistas</h1>
 
-		<section class="peliculas-vistas">
-			<article class="pelicula">
-				<a href="pelicula.html?id=4" style="color: inherit; text-decoration: none;">
-					<h2>F1</h2>
-					<img src="posterf1.png" alt="Póster F1">
-					<p class="puntuacion">Puntuación: 4.0</p>
-				</a>
-			</article>
-
-			<article class="pelicula">
-				<a href="pelicula.html?id=5" style="color: inherit; text-decoration: none;">
-					<h2>Superman</h2>
-					<img src="postersuperman.png" alt="Póster Superman">
-					<p class="puntuacion">Puntuación: 3.5</p>
-				</a>
-			</article>
-		</section>
+		<section class="peliculas-vistas" id="peliculas-vistas"></section>
+		<p id="vistas-estado" class="estado-interfaz" aria-live="polite"></p>
 	</main>
+	<script src="js/api.js"></script>
+	<script src="js/vistas.js"></script>
 	<script src="js/script.js"></script>
 </body>
 </html>

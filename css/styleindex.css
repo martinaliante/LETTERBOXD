@@ -7,6 +7,34 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+[x-cloak] {
+    display: none !important;
+}
+
+.estado-interfaz {
+    grid-column: 1 / -1;
+    width: 100%;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.estado-error {
+    color: #b42318;
+}
+
+.estado-interfaz button {
+    display: block;
+    margin: 12px auto 0;
+    padding: 9px 14px;
+    border: 0;
+    border-radius: 6px;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
 .pagina-principal .contenedor-principal {
     max-width: 1100px;
     margin: 30px auto;

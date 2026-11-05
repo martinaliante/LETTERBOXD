@@ -3,8 +3,16 @@ function cinebox() {
         peliculas: [],
         cargando: true,
         mensaje: '',
+        error: false,
 
         async init() {
+            await this.cargarPeliculas();
+        },
+
+        async cargarPeliculas() {
+            this.cargando = true;
+            this.error = false;
+            this.mensaje = '';
             try {
                 this.peliculas = await obtenerPeliculas();
 
@@ -13,6 +21,7 @@ function cinebox() {
                 }
             } catch (error) {
                 console.error(error);
+                this.error = true;
                 this.mensaje = 'No se pudieron cargar las películas.';
             } finally {
                 this.cargando = false;

@@ -39,10 +39,18 @@
   <section class="seccion-populares">
     <h2>Películas populares esta semana</h2>
     
-<div class="carrusel-peliculas" x-data="cinebox()">
+<div class="carrusel-peliculas" x-data="cinebox()" x-cloak>
+    <p x-show="cargando" class="estado-interfaz">Cargando películas...</p>
+
+    <div x-show="error" class="estado-interfaz estado-error">
+      <p x-text="mensaje"></p>
+      <button type="button" @click="cargarPeliculas()">Reintentar</button>
+    </div>
+
+    <p x-show="!cargando && !error && peliculas.length === 0" class="estado-interfaz" x-text="mensaje"></p>
 
     <template x-for="pelicula in peliculas" :key="pelicula.id">
-        <article class="tarjeta-pelicula">
+        <article class="tarjeta-pelicula" x-show="!cargando && !error">
             <a class="enlace-pelicula" :href="'pelicula.html?id=' + pelicula.id">
             <h3 x-text="pelicula.titulo"></h3>
 

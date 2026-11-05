@@ -1,9 +1,11 @@
 const WATCHLIST_KEY = "cineboxdWatchlist";
+const WATCHLISTA_INICIAL = [6, 7];
 
 function obtenerWatchlist() {
     const usuario = sessionStorage.getItem("cineboxdCurrentUser") || "invitado";
     try {
-        return JSON.parse(localStorage.getItem(`${WATCHLIST_KEY}_${usuario}`)) || [];
+        const guardada = localStorage.getItem(`${WATCHLIST_KEY}_${usuario}`);
+        return guardada ? JSON.parse(guardada) : WATCHLISTA_INICIAL;
     } catch (error) {
         console.error("No se pudo leer la watchlist:", error);
         return [];
@@ -11,16 +13,25 @@ function obtenerWatchlist() {
 }
 
 async function mostrarPeliculasGuardadas() {
+    const contenedor = document.getElementById("watchlist-peliculas");
+    const estado = document.getElementById("watchlist-estado");
+    estado.textContent = "Cargando watchlist...";
     const ids = obtenerWatchlist();
     if (ids.length === 0) {
+        estado.textContent = "Todavía no tienes películas en tu watchlist.";
         return;
     }
 
     try {
         const peliculas = await obtenerPeliculas();
-        const contenedor = document.getElementById("watchlist-peliculas");
         const guardadas = peliculas.filter(pelicula => ids.includes(pelicula.id));
 
+        contenedor.replaceChildren();
+        if (guardadas.length === 0) {
+            estado.textContent = "Todavía no tienes películas en tu watchlist.";
+            return;
+        }
+        estado.textContent = "";
         guardadas.forEach(pelicula => {
             const articulo = document.createElement("article");
             articulo.className = "pelicula";
@@ -42,6 +53,12 @@ async function mostrarPeliculasGuardadas() {
         });
     } catch (error) {
         console.error("No se pudo cargar la watchlist:", error);
+        estado.textContent = "No se pudo cargar la watchlist.";
+        const boton = document.createElement("button");
+        boton.type = "button";
+        boton.textContent = "Reintentar";
+        boton.addEventListener("click", mostrarPeliculasGuardadas);
+        estado.appendChild(boton);
     }
 }
 
