@@ -1,4 +1,11 @@
-const PELICULAS_VISTAS = [4, 5];
+const PUNTUACIONES_ARTIFICIALES = {
+    4: 4.5,
+    5: 4
+};
+
+function obtenerPeliculasVistas() {
+    return leerListaUsuario("vistas");
+}
 
 function mostrarEstadoVistas(texto, reintentar) {
     const estado = document.getElementById("vistas-estado");
@@ -18,7 +25,7 @@ async function cargarPeliculasVistas() {
     mostrarEstadoVistas("Cargando películas vistas...");
     try {
         const peliculas = await obtenerPeliculas();
-        const vistas = peliculas.filter(pelicula => PELICULAS_VISTAS.includes(pelicula.id));
+        const vistas = peliculasDeLista(peliculas, "vistas");
         contenedor.replaceChildren();
         if (vistas.length === 0) {
             mostrarEstadoVistas("Todavía no has marcado películas como vistas.");
@@ -39,7 +46,8 @@ async function cargarPeliculasVistas() {
             imagen.alt = `Póster de ${pelicula.titulo}`;
             const puntuacion = document.createElement("p");
             puntuacion.className = "puntuacion";
-            puntuacion.textContent = `Puntuación: ${pelicula.puntuacion}`;
+            puntuacion.textContent =
+                `Tu puntuación: ${PUNTUACIONES_ARTIFICIALES[pelicula.id] || pelicula.puntuacion}/5`;
             enlace.append(titulo, imagen, puntuacion);
             articulo.appendChild(enlace);
             contenedor.appendChild(articulo);

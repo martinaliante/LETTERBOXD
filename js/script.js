@@ -27,6 +27,16 @@ function updateSessionHeader() {
     }
 }
 
+function protectPrivateView() {
+    if (document.body.dataset.private === undefined) {
+        return;
+    }
+
+    if (!sessionStorage.getItem(CURRENT_USER_KEY)) {
+        window.location.replace("login.html");
+    }
+}
+
 async function hashPassword(password, salt) {
     if (!window.crypto?.subtle) {
         throw new Error("La autenticación requiere un contexto seguro. Abre el sitio con Live Server.");
@@ -45,6 +55,7 @@ async function register(event) {
     const password = document.getElementById("create-password").value;
     const repeatPassword = document.getElementById("repeat-password").value;
     const message = document.getElementById("message");
+    const submitButton = form.querySelector("button[type='submit']");
 
     if (!username || !password || !repeatPassword) {
         showMessage(message, "Completa todos los campos.", "red");
@@ -57,6 +68,8 @@ async function register(event) {
     }
 
     try {
+        submitButton.disabled = true;
+        submitButton.textContent = "Guardando...";
         const users = getUsers();
         if (users.some(user => user.username.toLowerCase() === username.toLowerCase())) {
             showMessage(message, "Ese nombre de usuario ya está registrado.", "red");
@@ -76,6 +89,9 @@ async function register(event) {
     } catch (error) {
         console.error("No se pudo crear la cuenta:", error);
         showMessage(message, error.message || "No se pudo guardar la cuenta en este navegador.", "red");
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Registrarse";
     }
 }
 
@@ -85,6 +101,7 @@ async function login(event) {
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
     const message = document.getElementById("message");
+    const submitButton = document.querySelector("#login-form button[type='submit']");
 
     if (!username || !password) {
         showMessage(message, "Ingresa tu usuario y contraseña.", "red");
@@ -92,6 +109,8 @@ async function login(event) {
     }
 
     try {
+        submitButton.disabled = true;
+        submitButton.textContent = "Validando...";
         const user = getUsers().find(
             storedUser => storedUser.username.toLowerCase() === username.toLowerCase()
         );
@@ -107,9 +126,13 @@ async function login(event) {
     } catch (error) {
         console.error("No se pudo iniciar sesión:", error);
         showMessage(message, error.message || "No se pudo validar la cuenta en este navegador.", "red");
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Iniciar sesión";
     }
 }
 
 document.getElementById("login-form")?.addEventListener("submit", login);
 document.getElementById("register-form")?.addEventListener("submit", register);
 updateSessionHeader();
+protectPrivateView();

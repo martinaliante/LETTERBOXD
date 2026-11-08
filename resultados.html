@@ -19,8 +19,6 @@
       <a class="boton-inicio" href="index.html">Inicio</a>
       <ul class="menu-sitio">
         <li><a href="notificaciones.html">Notificaciones</a></li>
-        <li><a href="vistas.html">Películas vistas</a></li>
-        <li><a href="watchlist.html">Watchlist</a></li>
         <li><a href="amigos.html">Amigos</a></li>
       </ul>
       <div class="botones-acceso-sitio" data-auth-controls>
@@ -28,12 +26,37 @@
         <a href="login.html">Iniciar sesión</a>
         <a href="register.html">Registrarse</a>
       </div>
-      <span class="usuario-sesion-sitio" data-auth-user hidden></span>
+      <a class="usuario-sesion-sitio" data-auth-user href="perfil.html" hidden></a>
     </nav>
   </header>
 
   <main class="contenido-resultados">
     <h1 id="titulo-resultados">Resultados de búsqueda</h1>
+    <div class="controles-resultados" aria-label="Filtrar y ordenar resultados">
+      <label>
+        Ordenar:
+        <select id="orden-resultados">
+          <option value="mejor">Mejor valoradas</option>
+          <option value="peor">Peor valoradas</option>
+          <option value="alfabetico">Orden alfabético</option>
+        </select>
+      </label>
+      <label>
+        Género:
+        <select id="filtro-genero">
+          <option value="todos">Todos</option>
+          <option value="acción">Acción</option>
+          <option value="animación">Animación</option>
+          <option value="aventura">Aventura</option>
+          <option value="ciencia ficción">Ciencia ficción</option>
+          <option value="comedia">Comedia</option>
+          <option value="crimen">Crimen</option>
+          <option value="deportes">Deportes</option>
+          <option value="drama">Drama</option>
+          <option value="historia">Historia</option>
+        </select>
+      </label>
+    </div>
     <section id="resultados-peliculas" class="resultados-peliculas" aria-live="polite"></section>
   </main>
 

@@ -4,42 +4,49 @@
     "id": 1,
     "titulo": "El Padrino",
     "poster": "posterpadrino.png",
-    "puntuacion": 4.8
+    "puntuacion": 4.8,
+    "generos": ["Crimen", "Drama"]
   },
   {
     "id": 2,
     "titulo": "Dune: Parte 2",
     "poster": "posterdune2.png",
-    "puntuacion": 4.6
+    "puntuacion": 4.6,
+    "generos": ["Ciencia ficción", "Aventura"]
    },
   {
     "id": 3,
     "titulo": "La fiesta de las salchichas",
     "poster": "posterfiesta.png",
-    "puntuacion": 4
+    "puntuacion": 4,
+    "generos": ["Comedia", "Animación"]
   },
   {
     "id": 4,
     "titulo": "F1",
     "poster": "posterf1.png",
-    "puntuacion": 4
+    "puntuacion": 4,
+    "generos": ["Deportes", "Drama"]
   },
   {
     "id": 5,
     "titulo": "Superman",
     "poster": "postersuperman.png",
-    "puntuacion": 3.5
+    "puntuacion": 3.5,
+    "generos": ["Acción", "Aventura"]
   },
   {
     "id": 6,
     "titulo": "Shrek",
     "poster": "postershrek.png",
-    "puntuacion": 4
+    "puntuacion": 4,
+    "generos": ["Animación", "Comedia"]
   },
   {
     "id": 7,
     "titulo": "Oppenheimer",
     "poster": "posteroppenheimer.png",
-    "puntuacion": 4.2
+    "puntuacion": 4.2,
+    "generos": ["Drama", "Historia"]
   }
 ]

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi perfil - Cinebox</title>
+  <link rel="stylesheet" href="css/header.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body data-private class="min-h-screen bg-gray-100">
+  <header class="cabecera-sitio">
+    <a class="marca-sitio" href="index.html">Cinebox</a>
+    <nav class="navegacion-sitio" aria-label="Navegación principal">
+      <span class="etiqueta-navegacion">Buscar película</span>
+      <form action="resultados.html" method="GET" class="busqueda-sitio">
+        <input type="search" name="q" placeholder="Buscar..." aria-label="Buscar película" required>
+        <button type="submit">Buscar</button>
+      </form>
+      <a class="boton-inicio" href="index.html">Inicio</a>
+      <ul class="menu-sitio">
+        <li><a href="notificaciones.html">Notificaciones</a></li>
+        <li><a href="amigos.html">Amigos</a></li>
+      </ul>
+      <div class="botones-acceso-sitio" data-auth-controls>
+        <span class="etiqueta-navegacion">Identifícate</span>
+        <a href="login.html">Iniciar sesión</a>
+        <a href="register.html">Registrarse</a>
+      </div>
+      <a class="usuario-sesion-sitio" data-auth-user href="perfil.html" hidden></a>
+    </nav>
+  </header>
+
+  <main class="mx-auto my-10 w-[min(calc(100%-2rem),700px)] text-center">
+    <h1 class="text-4xl font-bold">Mi perfil</h1>
+    <p id="perfil-mensaje" class="rounded-lg bg-white p-5 text-center" aria-live="polite"></p>
+    <section id="perfil-contenido" class="mt-8 rounded-xl bg-white p-6 shadow-md" hidden>
+      <h2 id="perfil-nombre" class="text-2xl font-bold"></h2>
+      <div class="mt-6 flex flex-wrap justify-center border-b border-gray-200" role="tablist" aria-label="Secciones del perfil">
+        <button type="button" class="border-b-2 border-blue-600 px-4 py-2 font-bold text-blue-600" data-tab="resumen" role="tab" aria-selected="true">Resumen</button>
+        <button type="button" class="border-b-2 border-transparent px-4 py-2" data-tab="actividad" role="tab" aria-selected="false">Actividad</button>
+        <button type="button" class="border-b-2 border-transparent px-4 py-2" data-tab="vistas" role="tab" aria-selected="false">
+          Películas vistas <span id="perfil-vistas-tab" class="ml-1 rounded bg-gray-200 px-2 py-0.5 text-sm font-normal text-gray-700">0</span>
+        </button>
+        <button type="button" class="border-b-2 border-transparent px-4 py-2" data-tab="watchlist" role="tab" aria-selected="false">
+          Watchlist <span id="perfil-watchlist-tab" class="ml-1 rounded bg-gray-200 px-2 py-0.5 text-sm font-normal text-gray-700">0</span>
+        </button>
+      </div>
+      <section id="panel-resumen" class="min-h-24" role="tabpanel">
+        <div class="flex justify-center gap-6">
+          <p class="flex flex-col gap-1"><strong id="perfil-vistas" class="text-3xl">0</strong><span>Películas vistas</span></p>
+          <p class="flex flex-col gap-1"><strong id="perfil-watchlist" class="text-3xl">0</strong><span>En watchlist</span></p>
+          <p class="flex flex-col gap-1"><strong id="perfil-resenas" class="text-3xl">0</strong><span>Reseñas</span></p>
+        </div>
+      </section>
+      <section id="panel-actividad" class="min-h-24" role="tabpanel" hidden>
+        <div id="perfil-actividad" class="mt-6"></div>
+      </section>
+      <section id="panel-vistas" class="min-h-24" role="tabpanel" hidden>
+        <div id="perfil-peliculas-vistas" class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3"></div>
+      </section>
+      <section id="panel-watchlist" class="min-h-24" role="tabpanel" hidden>
+        <div id="perfil-peliculas-watchlist" class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3"></div>
+      </section>
+      <button id="cerrar-sesion" class="mt-6 rounded-md border border-gray-400 bg-white px-3 py-2 hover:bg-gray-100" type="button">Cerrar sesión</button>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/listasUsuario.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/perfil.js"></script>
+</body>
+</html>

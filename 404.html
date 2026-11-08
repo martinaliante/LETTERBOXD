@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Película no encontrada - Cinebox</title>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="cabecera-sitio">
+    <a class="marca-sitio" href="index.html">Cinebox</a>
+    <nav class="navegacion-sitio" aria-label="Navegación principal">
+      <span class="etiqueta-navegacion">Buscar película</span>
+      <form action="resultados.html" method="GET" class="busqueda-sitio">
+        <input type="search" name="q" placeholder="Buscar..." aria-label="Buscar película" required>
+        <button type="submit">Buscar</button>
+      </form>
+      <a class="boton-inicio" href="index.html">Inicio</a>
+      <ul class="menu-sitio">
+        <li><a href="notificaciones.html">Notificaciones</a></li>
+        <li><a href="amigos.html">Amigos</a></li>
+      </ul>
+      <div class="botones-acceso-sitio" data-auth-controls>
+        <span class="etiqueta-navegacion">Identifícate</span>
+        <a href="login.html">Iniciar sesión</a>
+        <a href="register.html">Registrarse</a>
+      </div>
+      <a class="usuario-sesion-sitio" data-auth-user href="perfil.html" hidden></a>
+    </nav>
+  </header>
+
+  <main class="pagina-no-encontrada">
+    <p class="codigo-error">404</p>
+    <h1>Película no encontrada</h1>
+    <p>La película que buscas no existe o ya no está disponible.</p>
+    <div class="acciones-error">
+      <a href="index.html">Volver al inicio</a>
+      <a href="resultados.html">Buscar otra película</a>
+    </div>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

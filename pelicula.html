@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Película - Cinebox</title>
   <link rel="stylesheet" href="css/header.css">
-  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="pagina-pelicula">
+<body class="min-h-screen bg-gray-100">
   <header class="cabecera-sitio">
     <a class="marca-sitio" href="index.html">Cinebox</a>
     <nav class="navegacion-sitio" aria-label="Navegación principal">
@@ -19,8 +19,6 @@
       <a class="boton-inicio" href="index.html">Inicio</a>
       <ul class="menu-sitio">
         <li><a href="notificaciones.html">Notificaciones</a></li>
-        <li><a href="vistas.html">Películas vistas</a></li>
-        <li><a href="watchlist.html">Watchlist</a></li>
         <li><a href="amigos.html">Amigos</a></li>
       </ul>
       <div class="botones-acceso-sitio" data-auth-controls>
@@ -28,13 +26,13 @@
         <a href="login.html">Iniciar sesión</a>
         <a href="register.html">Registrarse</a>
       </div>
-      <span class="usuario-sesion-sitio" data-auth-user hidden></span>
+      <a class="usuario-sesion-sitio" data-auth-user href="perfil.html" hidden></a>
     </nav>
   </header>
 
-  <main class="contenido-pelicula">
-    <p id="mensaje-pelicula" class="mensaje-pelicula" aria-live="polite"></p>
-    <section id="detalle-pelicula" class="detalle-pelicula"></section>
+  <main class="mx-auto my-8 w-[min(100%-2rem,1000px)]">
+    <p id="mensaje-pelicula" class="min-h-6 text-green-700" aria-live="polite"></p>
+    <section id="detalle-pelicula" class="grid gap-8 rounded-xl bg-white p-5 shadow-md md:grid-cols-[minmax(200px,300px)_1fr] md:p-7"></section>
   </main>
 
   <script src="js/api.js"></script>

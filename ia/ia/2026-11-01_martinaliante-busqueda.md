@@ -116,6 +116,11 @@ cargarResultados();
 Estoy haciendo una pagina web de reseña de peliculas, necesito que la logica de busqueda ignore los tildes y mayusculas para una busqueda mas fluida.
 
 Respuesta 1:
+
+Para lograr una búsqueda que ignore mayúsculas y tildes, puedes crear una función auxiliar que utilice el método normalize("NFD") combinado con una expresión regular para eliminar los signos diacríticos (tildes) y convertir todo a minúsculas con toLowerCase().
+
+Aquí tienes el código actualizado con la función normalizarTexto y la lógica de búsqueda ajustada en cargarResultados:
+
 function mostrarMensajeResultados(contenedor, texto) {
     contenedor.innerHTML = "";
     const mensaje = document.createElement("p");

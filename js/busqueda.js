@@ -44,7 +44,15 @@ function crearResultado(pelicula) {
     const puntuacion = document.createElement("p");
     puntuacion.textContent = `Puntuación: ${pelicula.puntuacion}/5`;
 
-    tarjeta.append(poster, titulo, puntuacion);
+    const generos = document.createElement("div");
+    generos.className = "etiquetas-genero";
+    pelicula.generos.forEach(genero => {
+        const etiqueta = document.createElement("span");
+        etiqueta.textContent = genero;
+        generos.appendChild(etiqueta);
+    });
+
+    tarjeta.append(poster, titulo, puntuacion, generos);
     return tarjeta;
 }
 
@@ -83,12 +91,39 @@ async function cargarResultados() {
         );
         //2026-11-01 Martín Aliante
 
-        if (resultados.length === 0) {
-            mostrarMensajeResultados(contenedor, "No se encontraron películas.");
-            return;
-        }
+        const orden = document.getElementById("orden-resultados");
+        const filtroGenero = document.getElementById("filtro-genero");
+        const renderizarResultados = () => {
+            const filtrados = resultados
+                .filter(pelicula =>
+                    filtroGenero.value === "todos" ||
+                    pelicula.generos.some(genero =>
+                        normalizarTexto(genero) === normalizarTexto(filtroGenero.value)
+                    )
+                )
+                .sort((a, b) => {
+                    if (orden.value === "alfabetico") {
+                        return a.titulo.localeCompare(b.titulo, "es");
+                    }
+                    if (orden.value === "peor") {
+                        return Number(a.puntuacion) - Number(b.puntuacion);
+                    }
+                    if (orden.value === "mejor") {
+                        return Number(b.puntuacion) - Number(a.puntuacion);
+                    }
+                    return 0;
+                });
 
-        contenedor.replaceChildren(...resultados.map(crearResultado));
+            if (filtrados.length === 0) {
+                mostrarMensajeResultados(contenedor, "No hay películas que cumplan el filtro.");
+                return;
+            }
+            contenedor.replaceChildren(...filtrados.map(crearResultado));
+        };
+
+        orden.addEventListener("change", renderizarResultados);
+        filtroGenero.addEventListener("change", renderizarResultados);
+        renderizarResultados();
     } catch (error) {
         console.error("No se pudieron cargar los resultados:", error);
         mostrarErrorResultados(

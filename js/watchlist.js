@@ -1,15 +1,5 @@
-const WATCHLIST_KEY = "cineboxdWatchlist";
-const WATCHLISTA_INICIAL = [6, 7];
-
 function obtenerWatchlist() {
-    const usuario = sessionStorage.getItem("cineboxdCurrentUser") || "invitado";
-    try {
-        const guardada = localStorage.getItem(`${WATCHLIST_KEY}_${usuario}`);
-        return guardada ? JSON.parse(guardada) : WATCHLISTA_INICIAL;
-    } catch (error) {
-        console.error("No se pudo leer la watchlist:", error);
-        return [];
-    }
+    return leerListaUsuario("watchlist");
 }
 
 async function mostrarPeliculasGuardadas() {
