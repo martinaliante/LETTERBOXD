@@ -48,5 +48,26 @@
     "poster": "posteroppenheimer.png",
     "puntuacion": 4.2,
     "generos": ["Drama", "Historia"]
+  },
+  {
+    "id": 8,
+    "titulo": "Interestelar",
+    "poster": "posterinterestelar.png",
+    "puntuacion": 4.7,
+    "generos": ["Ciencia ficción", "Drama"]
+  },
+  {
+    "id": 9,
+    "titulo": "Batman: El caballero de la noche",
+    "poster": "posterbatman.png",
+    "puntuacion": 4.8,
+    "generos": ["Acción", "Crimen"]
+  },
+  {
+    "id": 10,
+    "titulo": "Toy Story",
+    "poster": "postertoystory.png",
+    "puntuacion": 4.5,
+    "generos": ["Animación", "Aventura"]
   }
 ]
