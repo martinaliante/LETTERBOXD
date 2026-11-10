@@ -1,44 +1,12 @@
 
-/*
-============================================================
- CINEBOX - SISTEMA DE BÚSQUEDA
-============================================================
 
-Responsabilidades:
-- Buscar películas por título.
-- Ignorar diferencias entre mayúsculas y minúsculas.
-- Ignorar tildes.
-- Filtrar películas por género.
-- Ordenar por puntuación o alfabéticamente.
-- Mostrar estados de carga, vacío y error.
-- Permitir reintentar la carga.
-
-Los datos se obtienen exclusivamente mediante api.js.
-============================================================
-*/
-
-
-// ============================================================
-// 1. VARIABLES
-// ============================================================
-
-// Almacena las películas obtenidas desde la API.
 let peliculasDisponibles = [];
 
 // Guarda la consulta realizada por el usuario.
 let consultaActual = "";
 
 
-// ============================================================
-// 2. NORMALIZACIÓN DE TEXTO
-// ============================================================
 
-/*
- * Convierte el texto a minúsculas y elimina las tildes.
- *
- * Ejemplo:
- * "Acción" se convierte en "accion".
- */
 function normalizarTexto(texto) {
     return String(texto)
         .toLowerCase()
@@ -47,11 +15,7 @@ function normalizarTexto(texto) {
 }
 
 
-// ============================================================
-// 3. MENSAJES DE INTERFAZ
-// ============================================================
 
-// Muestra un mensaje dentro del contenedor de resultados.
 function mostrarMensajeResultados(contenedor, texto) {
     contenedor.replaceChildren();
 
@@ -88,14 +52,7 @@ function mostrarErrorResultados(contenedor, texto, reintentar) {
 }
 
 
-// ============================================================
-// 4. CREACIÓN DE TARJETAS
-// ============================================================
 
-/*
- * Construye una tarjeta para cada película.
- * El contenido se crea dinámicamente desde los datos del JSON.
- */
 function crearResultado(pelicula) {
 
     const tarjeta = document.createElement("article");
@@ -165,16 +122,7 @@ function crearResultado(pelicula) {
 }
 
 
-// ============================================================
-// 5. FILTRADO Y ORDENAMIENTO
-// ============================================================
 
-/*
- * Aplica los filtros y el ordenamiento seleccionados.
- *
- * Se utiliza [...resultados] para crear una copia del arreglo.
- * Así evitamos modificar el orden original de las películas.
- */
 function renderizarResultados() {
 
     const contenedor = document.getElementById("resultados-peliculas");
@@ -184,7 +132,7 @@ function renderizarResultados() {
     const filtroGenero = document.getElementById("filtro-genero");
 
 
-    // Busca películas cuyo título coincida con la consulta.
+    // Busca películas cuyo título coincida con la consulta
     const resultados = peliculasDisponibles.filter(pelicula =>
         normalizarTexto(pelicula.titulo).includes(
             normalizarTexto(consultaActual)
@@ -192,7 +140,7 @@ function renderizarResultados() {
     );
 
 
-    // Aplica el filtro por género.
+
     const filtrados = resultados.filter(pelicula => {
 
         return filtroGenero.value === "todos" ||
@@ -250,10 +198,6 @@ function renderizarResultados() {
 
 }
 
-
-// ============================================================
-// 6. CARGA DE RESULTADOS DESDE LA API
-// ============================================================
 
 async function cargarResultados() {
 
@@ -330,17 +274,6 @@ async function cargarResultados() {
 
 }
 
-
-// ============================================================
-// 7. INICIALIZACIÓN DE EVENTOS
-// ============================================================
-
-/*
- * Los eventos se registran una sola vez.
- *
- * De esta manera, si el usuario presiona Reintentar,
- * no se agregan nuevos eventos a los filtros.
- */
 function inicializarBusqueda() {
 
     const orden = document.getElementById("orden-resultados");
