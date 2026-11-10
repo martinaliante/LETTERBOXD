@@ -10,7 +10,7 @@
   {
     "id": 2,
     "titulo": "Dune: Parte 2",
-    "poster": "posterdune2.png",
+    "poster": "posters/posterdune2.png",
     "puntuacion": 4.6,
     "generos": ["Ciencia ficción", "Aventura"]
    },
