@@ -38,7 +38,7 @@
   {
     "id": 6,
     "titulo": "Shrek",
-    "poster": "postershrek.png",
+    "poster": "posters/postershrek.png",
     "puntuacion": 4,
     "generos": ["Animación", "Comedia"]
   },
