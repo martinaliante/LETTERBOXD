@@ -17,7 +17,7 @@
   {
     "id": 3,
     "titulo": "La fiesta de las salchichas",
-    "poster": "posterfiesta.png",
+    "poster": "posters/posterfiesta.png",
     "puntuacion": 4,
     "generos": ["Comedia", "Animación"]
   },
