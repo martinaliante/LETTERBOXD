@@ -31,7 +31,7 @@
   {
     "id": 5,
     "titulo": "Superman",
-    "poster": "postersuperman.png",
+    "poster": "posters/postersuperman.png",
     "puntuacion": 3.5,
     "generos": ["Acción", "Aventura"]
   },
