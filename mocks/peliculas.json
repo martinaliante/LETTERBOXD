@@ -3,7 +3,7 @@
   {
     "id": 1,
     "titulo": "El Padrino",
-    "poster": "posterpadrino.png",
+    "poster": "posters/posterpadrino.png",
     "puntuacion": 4.8,
     "generos": ["Crimen", "Drama"]
   },
