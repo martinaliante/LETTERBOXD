@@ -24,7 +24,7 @@
   {
     "id": 4,
     "titulo": "F1",
-    "poster": "posterf1.png",
+    "poster": "posters/posterf1.png",
     "puntuacion": 4,
     "generos": ["Deportes", "Drama"]
   },
