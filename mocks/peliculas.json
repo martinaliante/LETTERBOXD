@@ -45,7 +45,7 @@
   {
     "id": 7,
     "titulo": "Oppenheimer",
-    "poster": "posteroppenheimer.png",
+    "poster": "posters/posteroppenheimer.png",
     "puntuacion": 4.2,
     "generos": ["Drama", "Historia"]
   },
