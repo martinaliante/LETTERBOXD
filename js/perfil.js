@@ -37,7 +37,14 @@ function crearActividadVista(pelicula) {
 async function cargarActividadPerfil(usuario) {
     const contenedor = document.getElementById("perfil-actividad");
     try {
-        const peliculas = await obtenerPeliculas();
+        const respuestaPeliculas = await obtenerPeliculas();
+
+        if (!respuestaPeliculas.ok) {
+            throw new Error("No se pudieron cargar las películas.");
+        }
+
+        const peliculas = respuestaPeliculas.data;
+
         const peliculaVista = peliculasDeLista(peliculas, "vistas")
             .find(pelicula => pelicula.id === 4);
         contenedor.replaceChildren();
@@ -85,7 +92,13 @@ async function cargarPeliculasPerfil(usuario) {
     const panelVistas = document.getElementById("perfil-peliculas-vistas");
     const panelWatchlist = document.getElementById("perfil-peliculas-watchlist");
     try {
-        const peliculas = await obtenerPeliculas();
+        const respuestaPeliculas = await obtenerPeliculas();
+
+        if (!respuestaPeliculas.ok) {
+            throw new Error("No se pudieron cargar las películas.");
+        }
+
+        const peliculas = respuestaPeliculas.data;
         const vistas = peliculasDeLista(peliculas, "vistas");
         const watchlist = peliculasDeLista(peliculas, "watchlist");
         const renderizar = (panel, ids, vacio, esVista = false) => {
