@@ -18,6 +18,10 @@ function updateSessionHeader() {
         accessControls.hidden = true;
         usernameLabel.textContent = username;
         usernameLabel.hidden = false;
+    } else {
+        accessControls.hidden = false;
+        usernameLabel.hidden = true;
+        usernameLabel.textContent = "";
     }
 }
 
