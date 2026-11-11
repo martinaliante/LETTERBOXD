@@ -1,14 +1,8 @@
-const USERS_KEY = "cineboxdUsers";
 const CURRENT_USER_KEY = "cineboxdCurrentUser";
 
 function showMessage(message, text, color) {
     message.textContent = text;
     message.style.color = color;
-}
-
-function getUsers() {
-    const storedUsers = localStorage.getItem(USERS_KEY);
-    return storedUsers ? JSON.parse(storedUsers) : [];
 }
 
 function updateSessionHeader() {
@@ -24,6 +18,10 @@ function updateSessionHeader() {
         accessControls.hidden = true;
         usernameLabel.textContent = username;
         usernameLabel.hidden = false;
+    } else {
+        accessControls.hidden = false;
+        usernameLabel.hidden = true;
+        usernameLabel.textContent = "";
     }
 }
 
@@ -46,6 +44,7 @@ async function hashPassword(password, salt) {
     const hash = await window.crypto.subtle.digest("SHA-256", data);
     return Array.from(new Uint8Array(hash), byte => byte.toString(16).padStart(2, "0")).join("");
 }
+
 
 async function register(event) {
     event.preventDefault();
@@ -70,8 +69,16 @@ async function register(event) {
     try {
         submitButton.disabled = true;
         submitButton.textContent = "Guardando...";
-        const users = getUsers();
-        if (users.some(user => user.username.toLowerCase() === username.toLowerCase())) {
+
+        const respuestaUsuarios = await obtenerUsuarios();
+
+        if (!respuestaUsuarios.ok) {
+            throw new Error(respuestaUsuarios.error || "No se pudieron cargar los usuarios.");
+        }
+
+        const usuarios = respuestaUsuarios.data;
+
+        if (usuarios.some(user => user.username.toLowerCase() === username.toLowerCase())) {
             showMessage(message, "Ese nombre de usuario ya está registrado.", "red");
             return;
         }
@@ -80,20 +87,28 @@ async function register(event) {
             window.crypto.getRandomValues(new Uint8Array(16)),
             byte => byte.toString(16).padStart(2, "0")
         ).join("");
+
         const passwordHash = await hashPassword(password, salt);
 
-        users.push({ username, salt, passwordHash });
-        localStorage.setItem(USERS_KEY, JSON.stringify(users));
+        const respuesta = await crearUsuario({ username, salt, passwordHash });
+
+        if (!respuesta.ok) {
+            throw new Error(respuesta.error || "No se pudo crear la cuenta.");
+        }
+
         showMessage(message, "Cuenta creada. Ya puedes iniciar sesión.", "green");
         form.reset();
+
     } catch (error) {
         console.error("No se pudo crear la cuenta:", error);
-        showMessage(message, error.message || "No se pudo guardar la cuenta en este navegador.", "red");
+        showMessage(message, error.message || "No se pudo guardar la cuenta.", "red");
     } finally {
         submitButton.disabled = false;
         submitButton.textContent = "Registrarse";
     }
 }
+
+
 
 async function login(event) {
     event.preventDefault();
@@ -111,9 +126,14 @@ async function login(event) {
     try {
         submitButton.disabled = true;
         submitButton.textContent = "Validando...";
-        const user = getUsers().find(
-            storedUser => storedUser.username.toLowerCase() === username.toLowerCase()
-        );
+
+        const respuesta = await obtenerUsuario(username);
+
+        if (!respuesta.ok) {
+            throw new Error(respuesta.error || "No se pudo consultar el usuario.");
+        }
+
+        const user = respuesta.data;
 
         if (!user || await hashPassword(password, user.salt) !== user.passwordHash) {
             showMessage(message, "Usuario o contraseña incorrectos.", "red");
@@ -123,9 +143,10 @@ async function login(event) {
         sessionStorage.setItem(CURRENT_USER_KEY, user.username);
         showMessage(message, "Inicio de sesión correcto. Redirigiendo...", "green");
         window.location.href = "index.html";
+
     } catch (error) {
         console.error("No se pudo iniciar sesión:", error);
-        showMessage(message, error.message || "No se pudo validar la cuenta en este navegador.", "red");
+        showMessage(message, error.message || "No se pudo validar la cuenta.", "red");
     } finally {
         submitButton.disabled = false;
         submitButton.textContent = "Iniciar sesión";
