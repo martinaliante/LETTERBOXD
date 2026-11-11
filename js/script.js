@@ -18,6 +18,10 @@ function updateSessionHeader() {
         accessControls.hidden = true;
         usernameLabel.textContent = username;
         usernameLabel.hidden = false;
+    } else {
+        accessControls.hidden = false;
+        usernameLabel.hidden = true;
+        usernameLabel.textContent = "";
     }
 }
 
@@ -69,9 +73,10 @@ async function register(event) {
             window.crypto.getRandomValues(new Uint8Array(16)),
             byte => byte.toString(16).padStart(2, "0")
         ).join("");
-        const passwordHash = await hashPassword(password, salt);
 
+        const passwordHash = await hashPassword(password, salt);
         const respuesta = await crearUsuario({ username, salt, passwordHash });
+
         if (!respuesta.ok) {
             showMessage(message, respuesta.error, "red");
             return;
@@ -81,7 +86,7 @@ async function register(event) {
         form.reset();
     } catch (error) {
         console.error("No se pudo crear la cuenta:", error);
-        showMessage(message, error.message || "No se pudo guardar la cuenta en este navegador.", "red");
+        showMessage(message, error.message || "No se pudo guardar la cuenta.", "red");
     } finally {
         submitButton.disabled = false;
         submitButton.textContent = "Registrarse";
@@ -104,6 +109,7 @@ async function login(event) {
     try {
         submitButton.disabled = true;
         submitButton.textContent = "Validando...";
+
         const respuesta = await obtenerUsuario(username);
 
         if (!respuesta.ok) {
@@ -123,7 +129,7 @@ async function login(event) {
         window.location.href = "index.html";
     } catch (error) {
         console.error("No se pudo iniciar sesión:", error);
-        showMessage(message, error.message || "No se pudo validar la cuenta en este navegador.", "red");
+        showMessage(message, error.message || "No se pudo validar la cuenta.", "red");
     } finally {
         submitButton.disabled = false;
         submitButton.textContent = "Iniciar sesión";

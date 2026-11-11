@@ -496,11 +496,11 @@ async function renderizarPelicula(pelicula) {
             texto.value = "";
 
             renderizarResenas(
-    contenedor,
+    listaResenas,
     nuevasResenas.data,
-    peliculaId,
+    pelicula.id,
     autenticado
-            );
+);
 
 
             mostrarToast("Tu reseña fue publicada.");
