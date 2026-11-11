@@ -6,14 +6,15 @@
   <title>Cinebox</title>
   <link rel="stylesheet" href="css/styleindex.css">
   <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/theme.css">
 </head>
 <body class="pagina-principal">
   <header class="cabecera-sitio">
     <a class="marca-sitio" href="index.html">Cinebox</a>
     <nav class="navegacion-sitio" aria-label="Navegación principal">
-      <span class="etiqueta-navegacion">Buscar película</span>
+      <label class="etiqueta-navegacion" for="busqueda-peliculas">Buscar película</label>
       <form action="resultados.html" method="GET" class="busqueda-sitio">
-        <input type="search" name="q" placeholder="Buscar..." aria-label="Buscar película">
+        <input id="busqueda-peliculas" type="search" name="q" placeholder="Buscar..." aria-label="Buscar película">
         <button type="submit">Buscar</button>
       </form>
 
@@ -67,27 +68,15 @@
 
   <aside class="actividad-amigos">
     <h2>Actividad de tus amigos</h2>
-    <article class="publicacion-amigo">
-      <a class="enlace-pelicula" href="pelicula.html?id=3">
-        <img
-          class="poster-actividad"
-          src="posters/posterfiesta.png"
-          alt="Póster de La fiesta de las salchichas"
-        >
-        <div class="pie-publicacion">
-          <div class="autor-publicacion">
-            <img src="fotochuyete.png" alt="" class="avatar-publicacion">
-            <span>chuyete</span>
-          </div>
-          <p class="puntuacion-publicacion">4/5</p>
-        </div>
-      </a>
-    </article>
+    <div id="actividad-amigos-lista" aria-live="polite">
+      <p class="estado-interfaz">Cargando actividad...</p>
+    </div>
   </aside>
 </main>
 
 <script src="js/api.js"></script>
 <script src="js/app.js"></script>
+<script src="js/comunidad.js"></script>
 <script src="js/script.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 

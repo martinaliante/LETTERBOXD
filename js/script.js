@@ -1,14 +1,8 @@
-const USERS_KEY = "cineboxdUsers";
 const CURRENT_USER_KEY = "cineboxdCurrentUser";
 
 function showMessage(message, text, color) {
     message.textContent = text;
     message.style.color = color;
-}
-
-function getUsers() {
-    const storedUsers = localStorage.getItem(USERS_KEY);
-    return storedUsers ? JSON.parse(storedUsers) : [];
 }
 
 function updateSessionHeader() {
@@ -70,11 +64,6 @@ async function register(event) {
     try {
         submitButton.disabled = true;
         submitButton.textContent = "Guardando...";
-        const users = getUsers();
-        if (users.some(user => user.username.toLowerCase() === username.toLowerCase())) {
-            showMessage(message, "Ese nombre de usuario ya está registrado.", "red");
-            return;
-        }
 
         const salt = Array.from(
             window.crypto.getRandomValues(new Uint8Array(16)),
@@ -82,8 +71,12 @@ async function register(event) {
         ).join("");
         const passwordHash = await hashPassword(password, salt);
 
-        users.push({ username, salt, passwordHash });
-        localStorage.setItem(USERS_KEY, JSON.stringify(users));
+        const respuesta = await crearUsuario({ username, salt, passwordHash });
+        if (!respuesta.ok) {
+            showMessage(message, respuesta.error, "red");
+            return;
+        }
+
         showMessage(message, "Cuenta creada. Ya puedes iniciar sesión.", "green");
         form.reset();
     } catch (error) {
@@ -111,9 +104,14 @@ async function login(event) {
     try {
         submitButton.disabled = true;
         submitButton.textContent = "Validando...";
-        const user = getUsers().find(
-            storedUser => storedUser.username.toLowerCase() === username.toLowerCase()
-        );
+        const respuesta = await obtenerUsuario(username);
+
+        if (!respuesta.ok) {
+            showMessage(message, respuesta.error, "red");
+            return;
+        }
+
+        const user = respuesta.data;
 
         if (!user || await hashPassword(password, user.salt) !== user.passwordHash) {
             showMessage(message, "Usuario o contraseña incorrectos.", "red");

@@ -24,16 +24,22 @@ async function cargarPeliculasVistas() {
     const contenedor = document.getElementById("peliculas-vistas");
     mostrarEstadoVistas("Cargando películas vistas...");
     try {
-        const peliculas = await obtenerPeliculas();
-        const vistas = peliculasDeLista(peliculas, "vistas");
+        const [respuestaPeliculas, vistas] = await Promise.all([
+            obtenerPeliculas(),
+            leerListaUsuario("vistas")
+        ]);
+        if (!respuestaPeliculas.ok) throw new Error(respuestaPeliculas.error);
+        const peliculas = respuestaPeliculas.data;
+        const idsVistas = vistas;
+        const peliculasVistas = peliculas.filter(pelicula => idsVistas.includes(pelicula.id));
         contenedor.replaceChildren();
-        if (vistas.length === 0) {
+        if (peliculasVistas.length === 0) {
             mostrarEstadoVistas("Todavía no has marcado películas como vistas.");
             return;
         }
 
         mostrarEstadoVistas("");
-        vistas.forEach(pelicula => {
+        peliculasVistas.forEach(pelicula => {
             const articulo = document.createElement("article");
             articulo.className = "pelicula";
             const enlace = document.createElement("a");

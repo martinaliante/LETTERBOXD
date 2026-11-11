@@ -6,14 +6,15 @@
     <title>Notificaciones</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 <body class="pagina-notificaciones">
   <header class="cabecera-sitio">
     <a class="marca-sitio" href="index.html">Cinebox</a>
     <nav class="navegacion-sitio" aria-label="Navegación principal">
-      <span class="etiqueta-navegacion">Buscar película</span>
+      <label class="etiqueta-navegacion" for="busqueda-peliculas">Buscar película</label>
       <form action="resultados.html" method="GET" class="busqueda-sitio">
-        <input type="search" name="q" placeholder="Buscar..." aria-label="Buscar película">
+        <input id="busqueda-peliculas" type="search" name="q" placeholder="Buscar..." aria-label="Buscar película">
         <button type="submit">Buscar</button>
       </form>
       <a class="boton-inicio" href="index.html">Inicio</a>
@@ -31,25 +32,14 @@
   </header>
   <main class="contenido-notificaciones">
     <h1>Notificaciones</h1>
-    <ul class="lista-notificaciones">
+    <ul id="lista-notificaciones" class="lista-notificaciones" aria-live="polite">
       <li class="item-notificacion">
-        <div class="texto-notificacion">
-          <div class="detalle-actividad">
-            <div>Hoy <strong>chuyete</strong> vio:</div>
-
-            <a href="pelicula.html?id=3">
-              <img src="posters/posterfiesta.png" alt="Póster de La fiesta de las salchichas" class="poster-salch">
-            </a>
-      
-            <div class="info-pelicula">
-              <a href="pelicula.html?id=3"><strong>La fiesta de las salchichas</strong></a><br>
-              <span class="puntuacion">4/5</span>
-            </div>
-          </div>
-        </div>
+        <p class="estado-interfaz">Cargando actividad...</p>
       </li>
     </ul>
   </main>
+  <script src="js/api.js"></script>
+  <script src="js/comunidad.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
