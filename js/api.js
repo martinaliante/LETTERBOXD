@@ -20,12 +20,16 @@ Funciones principales:
 
 const API_RUTAS = {
     peliculas: "./mocks/peliculas.json",
-    usuarios: "./mocks/usuarios.json"
+    usuarios: "./mocks/usuarios.json",
+    amigos: "./mocks/amigos.json",
+    actividad: "./mocks/actividad.json"
 };
 
 const API_CLAVES = {
     peliculas: "cineboxdPeliculas",
     usuarios: "cineboxdUsers",
+    amigos: "cineboxdAmigos",
+    actividad: "cineboxdActividad",
     watchlist: "watchlist",
     vistas: "vistas",
     puntuaciones: "cineboxdRatings",
@@ -203,6 +207,32 @@ async function obtenerPeliculaPorId(id) {
 async function obtenerUsuarios() {
     return apiSolicitar(async () => {
         return await apiCargarRecurso("usuarios");
+    });
+}
+
+async function obtenerAmigos() {
+    return apiSolicitar(async () => {
+        return await apiCargarRecurso("amigos");
+    });
+}
+
+async function obtenerActividad() {
+    return apiSolicitar(async () => {
+        return await apiCargarRecurso("actividad");
+    });
+}
+
+async function obtenerResenasUsuario(usuario = apiUsuarioActual()) {
+    return apiSolicitar(async () => {
+        if (!usuario || usuario !== apiExigirSesion()) {
+            throw new Error("No puedes consultar las reseñas de otro usuario.");
+        }
+
+        const peliculas = await apiCargarRecurso("peliculas");
+        return peliculas.flatMap(pelicula =>
+            apiLeerLocal(apiClaveResenas(pelicula.id), [])
+                .filter(resena => resena.usuario === usuario)
+        );
     });
 }
 

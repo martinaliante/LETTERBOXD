@@ -49,26 +49,27 @@ function renderizarResenas(contenedor, resenas, peliculaId, autenticado) {
         const elemento = crearElemento(
             "li",
             "",
-            "flex justify-between gap-3 border-l-4 border-blue-600 bg-gray-100 p-3.5"
+            "flex flex-col gap-3 border-l-4 border-blue-600 bg-gray-100 p-3.5 sm:flex-row sm:justify-between"
         );
 
         const contenido = crearElemento(
             "span",
-            `${resena.usuario} (${resena.puntuacion ?? "sin puntuación"}/5): ${resena.texto}`
+            `${resena.usuario} (${resena.puntuacion ?? "sin puntuación"}/5): ${resena.texto}`,
+            "min-w-0 break-words"
         );
 
         elemento.appendChild(contenido);
-
-       // Solo el usuario autenticado puede modificar su propia reseña
-if (autenticado && resena.usuario === usuarioActual()) {
-            const acciones = crearElemento("div", "", "flex shrink-0 gap-1.5");
-
+        if (autenticado && resena.usuario === usuarioActual()) {
+            const acciones = crearElemento(
+                "div",
+                "",
+                "flex shrink-0 flex-wrap gap-1.5"
+            );
             const editar = crearElemento(
                 "button",
                 "Editar",
-                "rounded bg-gray-300 px-2 py-1.5 text-sm"
+                "min-h-11 rounded bg-gray-300 px-2 py-2 text-sm"
             );
-
             editar.type = "button";
 
             editar.addEventListener("click", async () => {
@@ -100,21 +101,19 @@ if (autenticado && resena.usuario === usuarioActual()) {
 
                 if (actualizadas.ok) {
                     renderizarResenas(
-            contenedor,
-            actualizadas.data,
-            peliculaId,
-            Boolean(sessionStorage.getItem("cineboxdCurrentUser"))
-        );
+                        contenedor,
+                        actualizadas.data,
+                        peliculaId,
+                        Boolean(sessionStorage.getItem("cineboxdCurrentUser"))
+                    );
                     mostrarToast("Reseña actualizada.");
                 }
             });
-
             const eliminar = crearElemento(
                 "button",
                 "Eliminar",
-                "rounded bg-gray-300 px-2 py-1.5 text-sm"
+                "min-h-11 rounded bg-gray-300 px-2 py-2 text-sm"
             );
-
             eliminar.type = "button";
 
             eliminar.addEventListener("click", async () => {
@@ -145,11 +144,11 @@ if (autenticado && resena.usuario === usuarioActual()) {
 
                 if (actualizadas.ok) {
                     renderizarResenas(
-    contenedor,
-    actualizadas.data,
-    peliculaId,
-    Boolean(sessionStorage.getItem("cineboxdCurrentUser"))
-);
+                        contenedor,
+                        actualizadas.data,
+                        peliculaId,
+                        Boolean(sessionStorage.getItem("cineboxdCurrentUser"))
+                    );
                     mostrarToast("Reseña eliminada.");
                 }
             });

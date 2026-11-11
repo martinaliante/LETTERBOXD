@@ -36,6 +36,6 @@ En resumen: no conviene copiar más código dentro de perfil.js; lo correcto es 
 
 
 
-Consulté como implementar y adaptar vistas.html y watchlist.htmldentro del perfil, ya que ahi corresponden mejor en lugar de la pagina principal. Por esta razon estas vistas ya no se estaban usando independientemente y debia adaptarlas para usarlas en el perfil.
+Consulté como implementar y adaptar vistas.html y watchlist.html dentro del perfil, ya que ahi corresponden mejor en lugar de la pagina principal. Por esta razon estas vistas ya no se estaban usando independientemente y debia adaptarlas para usarlas en el perfil.
 
 Las peliculas vistas y la watchlist se guardan en localStorage y cada usuario tiene sus propias listas. listasUsuario.js lee los datos para que el perfil y las demás paginas los utilicen. Ademas la pagina se actualiza cuando se hace un cambio.

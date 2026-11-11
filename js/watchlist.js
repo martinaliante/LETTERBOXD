@@ -1,19 +1,14 @@
-function obtenerWatchlist() {
-    return leerListaUsuario("watchlist");
-}
-
 async function mostrarPeliculasGuardadas() {
     const contenedor = document.getElementById("watchlist-peliculas");
     const estado = document.getElementById("watchlist-estado");
     estado.textContent = "Cargando watchlist...";
-    const ids = obtenerWatchlist();
-    if (ids.length === 0) {
-        estado.textContent = "Todavía no tienes películas en tu watchlist.";
-        return;
-    }
-
     try {
-        const peliculas = await obtenerPeliculas();
+        const [respuestaPeliculas, ids] = await Promise.all([
+            obtenerPeliculas(),
+            leerListaUsuario("watchlist")
+        ]);
+        if (!respuestaPeliculas.ok) throw new Error(respuestaPeliculas.error);
+        const peliculas = respuestaPeliculas.data;
         const guardadas = peliculas.filter(pelicula => ids.includes(pelicula.id));
 
         contenedor.replaceChildren();

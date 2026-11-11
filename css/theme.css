@@ -1,0 +1,191 @@
+:root {
+  color-scheme: light;
+  --cinebox-page: #f5f5f5;
+  --cinebox-surface: #fff;
+  --cinebox-text: #222;
+  --cinebox-muted: #555;
+  --cinebox-border: #ccc;
+  --cinebox-primary: #0056b3;
+  --cinebox-primary-hover: #004494;
+  --cinebox-radius: 8px;
+  --cinebox-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--cinebox-page);
+}
+
+body {
+  color: var(--cinebox-text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.pagina-perfil,
+.pagina-pelicula {
+  background-color: var(--cinebox-page);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--cinebox-text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.25;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+button:not(:disabled):hover {
+  filter: brightness(0.92);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--cinebox-primary);
+  outline-offset: 3px;
+}
+
+.login-box form > label,
+.register-box form > label {
+  align-self: flex-start;
+  margin-top: 8px;
+  color: var(--cinebox-muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.cabecera-sitio,
+.marca-sitio,
+.navegacion-sitio,
+.busqueda-sitio,
+.menu-sitio,
+.botones-acceso-sitio {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.marca-sitio {
+  background: var(--cinebox-page);
+  color: var(--cinebox-text);
+}
+
+.navegacion-sitio {
+  background: var(--cinebox-text);
+}
+
+.menu-sitio a[aria-current="page"],
+.boton-inicio[aria-current="page"],
+.botones-acceso-sitio a,
+.estado-interfaz button,
+.login-box button,
+.register-box button,
+.busqueda-sitio button {
+  background: var(--cinebox-primary);
+}
+
+.botones-acceso-sitio a:hover,
+.estado-interfaz button:hover,
+.login-box button:hover,
+.register-box button:hover,
+.busqueda-sitio button:hover {
+  background: var(--cinebox-primary-hover);
+}
+
+body button:disabled,
+body button:disabled:hover,
+body input:disabled,
+body input:disabled:hover,
+body select:disabled,
+body select:disabled:hover,
+body textarea:disabled {
+  border-color: #cbd5e1;
+  background-color: #e2e8f0;
+  color: #475569;
+  cursor: not-allowed;
+}
+
+.login-box,
+.register-box {
+  background: var(--cinebox-surface);
+}
+
+.login-box h2,
+.register-box h2 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-box input,
+.register-box input,
+.busqueda-sitio input,
+.controles-resultados select {
+  border-color: var(--cinebox-border);
+  border-radius: 6px;
+}
+
+.login-box input:focus-visible,
+.register-box input:focus-visible,
+.busqueda-sitio input:focus-visible,
+.controles-resultados select:focus-visible {
+  border-color: var(--cinebox-primary);
+}
+
+.login-box input:focus,
+.register-box input:focus {
+  outline: 3px solid var(--cinebox-primary);
+  outline-offset: 2px;
+}
+
+.text-blue-600 {
+  color: var(--cinebox-primary) !important;
+}
+
+.border-blue-600 {
+  border-color: var(--cinebox-primary) !important;
+}
+
+.tarjeta-pelicula,
+.resultado-pelicula,
+.actividad-amigos,
+.publicacion-amigo,
+.login-box,
+.register-box {
+  border-radius: var(--cinebox-radius);
+  box-shadow: var(--cinebox-shadow);
+}
+
+.estado-interfaz {
+  color: var(--cinebox-text);
+}
+
+.estado-interfaz.estado-error,
+.estado-error {
+  color: #b42318;
+}

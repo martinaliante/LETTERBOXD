@@ -688,3 +688,97 @@ ul {
         font-size: 16px;
     }
 }
+
+@media (max-width: 700px) {
+    .contenido-resultados,
+    .contenido-notificaciones {
+        margin: 24px auto;
+    }
+
+    .controles-resultados {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+        gap: 12px;
+    }
+
+    .controles-resultados label {
+        align-items: stretch;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    .controles-resultados select {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .resultados-peliculas {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 220px));
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .pagina-perfil main {
+        margin-top: 24px;
+    }
+
+    .pagina-perfil #perfil-contenido {
+        padding: 16px;
+    }
+
+    .pagina-perfil [role="tablist"] button {
+        min-height: 44px;
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    .pagina-perfil #panel-resumen > div {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .pagina-perfil #panel-resumen p {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .pagina-perfil #panel-resumen strong {
+        font-size: clamp(24px, 8vw, 30px);
+    }
+
+    .pagina-pelicula #detalle-pelicula {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+        padding: 16px;
+    }
+
+    .pagina-pelicula #detalle-pelicula > img {
+        width: min(100%, 240px);
+        aspect-ratio: 2 / 3;
+        justify-self: center;
+    }
+
+    .pagina-pelicula #detalle-pelicula h1 {
+        overflow-wrap: anywhere;
+        font-size: clamp(24px, 7vw, 30px);
+    }
+
+    .pagina-pelicula #detalle-pelicula button {
+        min-height: 44px;
+    }
+
+    .pagina-pelicula #detalle-pelicula li > span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .toast {
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        width: fit-content;
+        max-width: calc(100vw - 24px);
+        margin: 0 auto;
+    }
+}

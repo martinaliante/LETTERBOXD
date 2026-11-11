@@ -1,31 +1,10 @@
-const LISTAS_USUARIO = {
-    vistas: {
-        clave: "vistas",
-        inicial: [4, 5]
-    },
-    watchlist: {
-        clave: "watchlist",
-        inicial: [6, 7]
-    }
-};
-
-function usuarioListaActual() {
-    return sessionStorage.getItem("cineboxdCurrentUser") || "invitado";
+async function leerListaUsuario(tipo) {
+    const respuesta = await obtenerListaUsuario(tipo);
+    if (!respuesta.ok) throw new Error(respuesta.error);
+    return respuesta.data;
 }
 
-function leerListaUsuario(tipo) {
-    const configuracion = LISTAS_USUARIO[tipo];
-    const clave = `${configuracion.clave}_${usuarioListaActual()}`;
-    try {
-        const guardada = localStorage.getItem(clave);
-        return guardada ? JSON.parse(guardada) : [...configuracion.inicial];
-    } catch (error) {
-        console.error(`No se pudo leer la lista ${tipo}:`, error);
-        return [...configuracion.inicial];
-    }
-}
-
-function peliculasDeLista(peliculas, tipo) {
-    const ids = leerListaUsuario(tipo);
+async function peliculasDeLista(peliculas, tipo) {
+    const ids = await leerListaUsuario(tipo);
     return peliculas.filter(pelicula => ids.includes(pelicula.id));
 }

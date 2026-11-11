@@ -6,14 +6,15 @@
   <title>Película no encontrada - Cinebox</title>
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
   <header class="cabecera-sitio">
     <a class="marca-sitio" href="index.html">Cinebox</a>
     <nav class="navegacion-sitio" aria-label="Navegación principal">
-      <span class="etiqueta-navegacion">Buscar película</span>
+      <label class="etiqueta-navegacion" for="busqueda-peliculas">Buscar película</label>
       <form action="resultados.html" method="GET" class="busqueda-sitio">
-        <input type="search" name="q" placeholder="Buscar..." aria-label="Buscar película" required>
+        <input id="busqueda-peliculas" type="search" name="q" placeholder="Buscar..." aria-label="Buscar película" required>
         <button type="submit">Buscar</button>
       </form>
       <a class="boton-inicio" href="index.html">Inicio</a>
