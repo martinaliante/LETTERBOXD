@@ -56,15 +56,16 @@ function renderizarResenas(contenedor, resenas, peliculaId) {
     }
 
     resenas.forEach((resena, indice) => {
-        const elemento = crearElemento("li", "", "flex justify-between gap-3 border-l-4 border-blue-600 bg-gray-100 p-3.5");
+        const elemento = crearElemento("li", "", "flex flex-col gap-3 border-l-4 border-blue-600 bg-gray-100 p-3.5 sm:flex-row sm:justify-between");
         const contenido = crearElemento(
             "span",
-            `${resena.usuario} (${resena.puntuacion}/5): ${resena.texto}`
+            `${resena.usuario} (${resena.puntuacion}/5): ${resena.texto}`,
+            "min-w-0 break-words"
         );
         elemento.appendChild(contenido);
         if (resena.usuario === usuarioActual()) {
-            const acciones = crearElemento("div", "", "flex shrink-0 gap-1.5");
-            const editar = crearElemento("button", "Editar", "rounded bg-gray-300 px-2 py-1.5 text-sm");
+            const acciones = crearElemento("div", "", "flex shrink-0 flex-wrap gap-1.5");
+            const editar = crearElemento("button", "Editar", "min-h-11 rounded bg-gray-300 px-2 py-2 text-sm");
             editar.type = "button";
             editar.addEventListener("click", () => {
                 const texto = window.prompt("Edita tu reseña:", resena.texto);
@@ -75,7 +76,7 @@ function renderizarResenas(contenedor, resenas, peliculaId) {
                 renderizarResenas(contenedor, actualizadas, peliculaId);
                 mostrarToast("Reseña actualizada.");
             });
-            const eliminar = crearElemento("button", "Eliminar", "rounded bg-gray-300 px-2 py-1.5 text-sm");
+            const eliminar = crearElemento("button", "Eliminar", "min-h-11 rounded bg-gray-300 px-2 py-2 text-sm");
             eliminar.type = "button";
             eliminar.addEventListener("click", () => {
                 if (!window.confirm("¿Seguro que quieres eliminar esta reseña?")) return;
