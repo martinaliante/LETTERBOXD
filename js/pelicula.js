@@ -34,8 +34,8 @@ function crearElemento(tag, texto, clase) {
     return elemento;
 }
 
-// Ahora las reseñas se editan y eliminan mediante la API.
-function renderizarResenas(contenedor, resenas, peliculaId, autenticado) {
+// Las reseñas se muestran con la puntuación real de cada usuario.
+function renderizarResenas(contenedor, resenas, peliculaId, autenticado, ratings = {}) {
     contenedor.replaceChildren();
 
     if (resenas.length === 0) {
@@ -52,24 +52,33 @@ function renderizarResenas(contenedor, resenas, peliculaId, autenticado) {
             "flex flex-col gap-3 border-l-4 border-blue-600 bg-gray-100 p-3.5 sm:flex-row sm:justify-between"
         );
 
+        const puntuacion = ratings[resena.usuario];
+
+        const textoResena = puntuacion !== undefined
+            ? `${resena.usuario} ⭐ ${puntuacion}/5: ${resena.texto}`
+            : `${resena.usuario}: ${resena.texto}`;
+
         const contenido = crearElemento(
             "span",
-            `${resena.usuario} (${resena.puntuacion ?? "sin puntuación"}/5): ${resena.texto}`,
+            textoResena,
             "min-w-0 break-words"
         );
 
         elemento.appendChild(contenido);
+
         if (autenticado && resena.usuario === usuarioActual()) {
             const acciones = crearElemento(
                 "div",
                 "",
                 "flex shrink-0 flex-wrap gap-1.5"
             );
+
             const editar = crearElemento(
                 "button",
                 "Editar",
                 "min-h-11 rounded bg-gray-300 px-2 py-2 text-sm"
             );
+
             editar.type = "button";
 
             editar.addEventListener("click", async () => {
@@ -104,16 +113,20 @@ function renderizarResenas(contenedor, resenas, peliculaId, autenticado) {
                         contenedor,
                         actualizadas.data,
                         peliculaId,
-                        Boolean(sessionStorage.getItem("cineboxdCurrentUser"))
+                        Boolean(sessionStorage.getItem("cineboxdCurrentUser")),
+                        ratings
                     );
+
                     mostrarToast("Reseña actualizada.");
                 }
             });
+
             const eliminar = crearElemento(
                 "button",
                 "Eliminar",
                 "min-h-11 rounded bg-gray-300 px-2 py-2 text-sm"
             );
+
             eliminar.type = "button";
 
             eliminar.addEventListener("click", async () => {
@@ -147,8 +160,10 @@ function renderizarResenas(contenedor, resenas, peliculaId, autenticado) {
                         contenedor,
                         actualizadas.data,
                         peliculaId,
-                        Boolean(sessionStorage.getItem("cineboxdCurrentUser"))
+                        Boolean(sessionStorage.getItem("cineboxdCurrentUser")),
+                        ratings
                     );
+
                     mostrarToast("Reseña eliminada.");
                 }
             });
@@ -172,7 +187,6 @@ function calcularPuntuacion(pelicula, puntuaciones) {
         valores.length
     ).toFixed(1);
 }
-
 
 async function renderizarPelicula(pelicula) {
     const contenedor = document.getElementById("detalle-pelicula");
@@ -261,7 +275,7 @@ async function renderizarPelicula(pelicula) {
 
     botonWatchlist.type = "button";
 
-    // Agregar y quitar de watchlist ahora utiliza la API.
+    // Agregar y quitar de watchlist mediante la API.
     botonWatchlist.addEventListener("click", async () => {
         botonWatchlist.disabled = true;
 
@@ -301,12 +315,10 @@ async function renderizarPelicula(pelicula) {
         botonWatchlist.disabled = false;
     });
 
- 
- 
     if (autenticado) {
-       acciones.appendChild(botonWatchlist);
+        acciones.appendChild(botonWatchlist);
         informacion.appendChild(acciones);
-       }
+    }
 
     const botonVista = crearElemento(
         "button",
@@ -360,7 +372,7 @@ async function renderizarPelicula(pelicula) {
     });
 
     if (autenticado) {
-    acciones.appendChild(botonVista);
+        acciones.appendChild(botonVista);
     }
 
     const formulario = crearElemento("form", "", "mt-6 grid max-w-xl gap-3");
@@ -391,7 +403,7 @@ async function renderizarPelicula(pelicula) {
 
     formulario.append(selector, botonPuntuar);
 
-    // La puntuación ya no se guarda directamente en localStorage.
+    // Guardar la puntuación mediante la API.
     formulario.addEventListener("submit", async event => {
         event.preventDefault();
 
@@ -425,16 +437,16 @@ async function renderizarPelicula(pelicula) {
     });
 
     if (autenticado) {
-    informacion.appendChild(formulario);
-} else {
-    informacion.appendChild(
-        crearElemento(
-            "p",
-            "Inicia sesión para agregar películas a tus listas y puntuar.",
-            "mt-6 text-gray-600"
-        )
-    );
-}
+        informacion.appendChild(formulario);
+    } else {
+        informacion.appendChild(
+            crearElemento(
+                "p",
+                "Inicia sesión para agregar películas a tus listas y puntuar.",
+                "mt-6 text-gray-600"
+            )
+        );
+    }
 
     const resenas = crearElemento("section", "");
 
@@ -463,7 +475,7 @@ async function renderizarPelicula(pelicula) {
 
     const listaResenas = crearElemento("ul", "", "mt-3 grid list-none gap-3 p-0");
 
-    renderizarResenas(listaResenas, reviews, pelicula.id, autenticado);
+    renderizarResenas(listaResenas, reviews, pelicula.id, autenticado, ratings);
 
     // Crear reseñas mediante la API.
     formularioResena.addEventListener("submit", async event => {
@@ -496,30 +508,31 @@ async function renderizarPelicula(pelicula) {
             texto.value = "";
 
             renderizarResenas(
-    listaResenas,
-    nuevasResenas.data,
-    pelicula.id,
-    autenticado
-);
-
+                listaResenas,
+                nuevasResenas.data,
+                pelicula.id,
+                autenticado,
+                ratings
+            );
 
             mostrarToast("Tu reseña fue publicada.");
         }
     });
 
     if (autenticado) {
-    resenas.append(formularioResena, listaResenas);
-} else {
-    resenas.appendChild(
-        crearElemento(
-            "p",
-            "Inicia sesión para publicar reseñas.",
-            "mt-3 text-gray-600"
-        )
-    );
+        resenas.append(formularioResena, listaResenas);
+    } else {
+        resenas.appendChild(
+            crearElemento(
+                "p",
+                "Inicia sesión para publicar reseñas.",
+                "mt-3 text-gray-600"
+            )
+        );
 
-    resenas.appendChild(listaResenas);
-}
+        resenas.appendChild(listaResenas);
+    }
+
     informacion.appendChild(resenas);
 
     contenedor.append(poster, informacion);
