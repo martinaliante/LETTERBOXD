@@ -6,6 +6,10 @@ Cinebox es una red social para compartir, puntuar y reseñar películas,
 te permite llevar un registro personal de las películas que has visto o
 tener una lista para ver mas tarde; tambien puedes seguir a otras personas para saber que es lo que ven o recomiendan, asi como tu tambien puedes publicar las películas que te gustaron.
 
+## Registro de uso de IA
+
+Consultar el [índice de uso de IA](ia/README.md).
+
 ## Tecnologías
 
 - HTML, CSS y JavaScript.
