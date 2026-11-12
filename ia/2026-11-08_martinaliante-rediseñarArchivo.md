@@ -6,6 +6,7 @@
 -**Archivos afectados**: vistas.html y watchlist.html fueron borrados e implementados dentro de perfil.html
 
 # Objetivo
+
 Consulté como implementar y adaptar vistas.html y watchlist.html dentro del perfil, ya que ahi corresponden mejor en lugar de la pagina principal. Por esta razon estas vistas ya no se estaban usando independientemente y debia adaptarlas para usarlas en el perfil.
 
 
@@ -49,7 +50,8 @@ En resumen: no conviene copiar más código dentro de perfil.js; lo correcto es 
 
 # Qué se incorporó
 
-Seguí todos los pasos y funcionó correctamente
+Las peliculas vistas y la watchlist se guardan en localStorage y cada usuario tiene sus propias listas. listasUsuario.js lee los datos para que el perfil y las demás paginas los utilicen.
 
 # Verificación
-Las peliculas vistas y la watchlist se guardan en localStorage y cada usuario tiene sus propias listas. listasUsuario.js lee los datos para que el perfil y las demás paginas los utilicen. Ademas la pagina se actualiza cuando se hace un cambio.
+
+Se agregaron peliculas tanto a las vistas como a la watchlist y aparecen correctamente en sus respectivas pestañas en la pagina del perfil

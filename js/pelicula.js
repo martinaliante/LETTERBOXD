@@ -53,9 +53,14 @@ function renderizarResenas(contenedor, resenas, peliculaId, autenticado, ratings
         );
 
         const puntuacion = ratings[resena.usuario];
+        const tienePuntuacion = puntuacion !== null &&
+            puntuacion !== undefined &&
+            Number.isFinite(Number(puntuacion)) &&
+            Number(puntuacion) >= 1 &&
+            Number(puntuacion) <= 5;
 
-        const textoResena = puntuacion !== undefined
-            ? `${resena.usuario} ⭐ ${puntuacion}/5: ${resena.texto}`
+        const textoResena = tienePuntuacion
+            ? `${resena.usuario} ⭐ ${Number(puntuacion)}/5: ${resena.texto}`
             : `${resena.usuario}: ${resena.texto}`;
 
         const contenido = crearElemento(
@@ -304,6 +309,9 @@ async function renderizarPelicula(pelicula) {
             botonWatchlist.textContent = indice === -1
                 ? "Quitar de watchlist"
                 : "Agregar a watchlist";
+            if (indice === -1) {
+                botonVista.textContent = "Marcar como vista";
+            }
 
             mostrarMensaje(
                 indice === -1
@@ -360,6 +368,9 @@ async function renderizarPelicula(pelicula) {
             botonVista.textContent = indice === -1
                 ? "Quitar de vistas"
                 : "Marcar como vista";
+            if (indice === -1) {
+                botonWatchlist.textContent = "Agregar a watchlist";
+            }
 
             mostrarToast(
                 indice === -1
