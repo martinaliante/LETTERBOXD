@@ -10,28 +10,59 @@
   <link rel="stylesheet" href="css/theme.css">
 </head>
 <body class="pagina-pelicula min-h-screen bg-gray-100">
-  <header class="cabecera-sitio">
-    <a class="marca-sitio" href="index.html">Cinebox</a>
-    <nav class="navegacion-sitio" aria-label="Navegación principal">
-      <label class="etiqueta-navegacion" for="busqueda-peliculas">Buscar película</label>
+  
+<header class="cabecera-sitio">
+  <a class="marca-sitio" href="index.html">Cinebox</a>
+
+  <nav class="navegacion-sitio" aria-label="Navegación principal">
+    <button
+      class="boton-menu-movil"
+      type="button"
+      aria-label="Abrir menú de navegación"
+      aria-expanded="false"
+      aria-controls="menu-desplegable"
+    >
+      ☰
+    </button>
+
+    <div class="contenido-menu-movil" id="menu-desplegable">
+      <label class="etiqueta-navegacion" for="busqueda-peliculas">
+        Buscar película
+      </label>
+
       <form action="resultados.html" method="GET" class="busqueda-sitio">
-        <input id="busqueda-peliculas" type="search" name="q" placeholder="Buscar..." aria-label="Buscar película" required>
+        <input
+          id="busqueda-peliculas"
+          type="search"
+          name="q"
+          placeholder="Buscar..."
+          aria-label="Buscar película"
+          required
+        >
         <button type="submit">Buscar</button>
       </form>
+
       <a class="boton-inicio" href="index.html">Inicio</a>
+
       <ul class="menu-sitio">
         <li><a href="notificaciones.html">Notificaciones</a></li>
         <li><a href="amigos.html">Amigos</a></li>
       </ul>
+
       <div class="botones-acceso-sitio" data-auth-controls>
         <span class="etiqueta-navegacion">Identifícate</span>
         <a href="login.html">Iniciar sesión</a>
         <a href="register.html">Registrarse</a>
       </div>
+
       <a class="usuario-sesion-sitio" data-auth-user href="perfil.html" hidden></a>
-      <button class="cerrar-sesion-sitio" data-auth-logout type="button" hidden>Cerrar sesión</button>
-    </nav>
-  </header>
+
+      <button class="cerrar-sesion-sitio" data-auth-logout type="button" hidden>
+        Cerrar sesión
+      </button>
+    </div>
+  </nav>
+</header>
 
   <main class="mx-auto my-8 w-[min(100%-2rem,1000px)]">
     <p id="mensaje-pelicula" class="min-h-6 text-green-700" aria-live="polite"></p>
@@ -41,5 +72,6 @@
   <script src="js/api.js"></script>
   <script src="js/pelicula.js"></script>
   <script src="js/script.js"></script>
+  <script src="js/menu.js"></script>
 </body>
 </html>
