@@ -52,7 +52,7 @@ async function hashPassword(password, salt) {
     const hash = await window.crypto.subtle.digest("SHA-256", data);
     return Array.from(new Uint8Array(hash), byte => byte.toString(16).padStart(2, "0")).join("");
 }
-
+// Asistencia de IA: validación de campos y mensajes específicos de error.
 async function register(event) {
     event.preventDefault();
 
@@ -114,7 +114,7 @@ async function register(event) {
         submitButton.textContent = "Registrarse";
     }
 }
-
+// Asistencia de IA: validación de usuario y contraseña.
 async function login(event) {
     event.preventDefault();
 
