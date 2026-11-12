@@ -1,3 +1,4 @@
+
 .cabecera-sitio {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -145,10 +146,47 @@
   background: #444;
 }
 
+/* Botón hamburguesa: oculto en escritorio */
+.boton-menu-movil {
+  display: none;
+}
+
+/* El contenido se mantiene visible en escritorio */
+.contenido-menu-movil {
+  display: contents;
+}
+
 @media (max-width: 700px) {
   .navegacion-sitio {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .boton-menu-movil {
+    display: block;
+    align-self: flex-start;
+    padding: 8px 14px;
+    border: 0;
+    border-radius: 6px;
+    background: #007bff;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .boton-menu-movil:hover {
+    background: #0056b3;
+  }
+
+  .contenido-menu-movil {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .contenido-menu-movil.menu-abierto {
+    display: flex;
   }
 
   .boton-inicio {
