@@ -1,7 +1,20 @@
-Consulta 1:
+# <Adaptar vistas y watchlist en perfil>
+
+-**Fecha**: 2026-11-08
+-**Integrante**: Martín Aliante (martinaliante)
+-**Modelo y herramienta**: Chat GPT-6
+-**Archivos afectados**: vistas.html y watchlist.html fueron borrados e implementados dentro de perfil.html
+
+# Objetivo
+Consulté como implementar y adaptar vistas.html y watchlist.html dentro del perfil, ya que ahi corresponden mejor en lugar de la pagina principal. Por esta razon estas vistas ya no se estaban usando independientemente y debia adaptarlas para usarlas en el perfil.
+
+
+
+
+# Prompt 1:
 explicame como implemento vistas.html y watchlist.html a la seccion del perfil sin alterar el funcionamiento de la pagina ya que no las voy a usar como paginas independientes
 
-Respuesta 1:
+# Respuesta 1:
 Actualmente el perfil ya muestra las películas directamente, pero usa una lógica duplicada respecto a vistas.js y watchlist.js.
 
 Para integrarlas correctamente sin alterar el funcionamiento:
@@ -34,8 +47,9 @@ Puedes conservar vistas.html y watchlist.html como respaldo.
 Si estás seguro de que no las usarás, puedes eliminarlas junto con sus scripts, pero primero debes confirmar que ningún enlace o referencia las utilice.
 En resumen: no conviene copiar más código dentro de perfil.js; lo correcto es extraer la lógica común y hacer que el perfil sea la única interfaz visible para ambas listas.
 
+# Qué se incorporó
 
+Seguí todos los pasos y funcionó correctamente
 
-Consulté como implementar y adaptar vistas.html y watchlist.html dentro del perfil, ya que ahi corresponden mejor en lugar de la pagina principal. Por esta razon estas vistas ya no se estaban usando independientemente y debia adaptarlas para usarlas en el perfil.
-
+# Verificación
 Las peliculas vistas y la watchlist se guardan en localStorage y cada usuario tiene sus propias listas. listasUsuario.js lee los datos para que el perfil y las demás paginas los utilicen. Ademas la pagina se actualiza cuando se hace un cambio.

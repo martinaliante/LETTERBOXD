@@ -6,14 +6,14 @@ let peliculasDisponibles = [];
 let consultaActual = "";
 
 
-
+// [IA] inicio ia/2026-11-08_martinaliante_busqueda.md
 function normalizarTexto(texto) {
     return String(texto)
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
 }
-
+// [IA] fin
 
 
 function mostrarMensajeResultados(contenedor, texto) {

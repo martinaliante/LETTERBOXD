@@ -1,4 +1,17 @@
-Consulta 1:
+# <Normalizar texto de busqueda>
+
+-**Fecha**: 2026-11-08
+-**Integrante**: Martín Aliante (martinaliante)
+-**Modelo y herramienta**: Gemini pro
+-**Archivos afectados**: busqueda.js
+
+# Objetivo
+
+Pedi que la busqueda ignorará tildes y mayusculas para que las busquedas sean mas faciles de hacer.
+El codigo normaliza los textos haciendo que las mayusculas sean minusculas con toLowerCase y vocales con tilde queden sin ella con NFD.
+
+
+# Prompt 1:
 function mostrarMensajeResultados(contenedor, texto) {
 
     contenedor.innerHTML = "";
@@ -115,7 +128,7 @@ cargarResultados();
 
 Estoy haciendo una pagina web de reseña de peliculas, necesito que la logica de busqueda ignore los tildes y mayusculas para una busqueda mas fluida.
 
-Respuesta 1:
+# Respuesta 1:
 
 Para lograr una búsqueda que ignore mayúsculas y tildes, puedes crear una función auxiliar que utilice el método normalize("NFD") combinado con una expresión regular para eliminar los signos diacríticos (tildes) y convertir todo a minúsculas con toLowerCase().
 
@@ -155,6 +168,7 @@ function normalizarTexto(texto) {
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
 }
+----
 
 async function cargarResultados() {
     const parametros = new URLSearchParams(window.location.search);
@@ -175,7 +189,7 @@ async function cargarResultados() {
 
 
 
-        --Se implementó esta parte para hacer la busqueda normalizada
+        ---# IA Se implementó esta parte para hacer la busqueda normalizada
         const consultaNormalizada = normalizarTexto(consulta);
         const resultados = peliculas.filter(pelicula =>
             normalizarTexto(pelicula.titulo).includes(consultaNormalizada)
@@ -197,5 +211,13 @@ async function cargarResultados() {
 cargarResultados();
 
 
-Pedi que la busqueda ignorará tildes y mayusculas para que las busquedas sean mas faciles de hacer.
-El codigo normaliza los textos haciendo que las mayusculas sean minusculas con toLowerCase y vocales con tilde queden sin ella con NFD
+# Qué se incorporó
+
+Unicamente incorporé la funcion de normalizar texto.
+
+# Verificación
+
+Al utilizar la barra de busqueda intercalando mayusculas y tildes encuentra la pelicula sin problema
+
+
+-Comentario: revisando de nuevo busqueda.js cambiaron el codigo y ahora no es igual al que envie en el prompt, la funcion normalizarTexto si está en el codigo actual, pero consultaNormalizada no, no se crea una variable consultaNormalizada: se normaliza consultaActual directamente dentro del filtro. (Ambos estan etiquetados aquí)
