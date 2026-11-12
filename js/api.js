@@ -63,25 +63,26 @@ function apiRespuesta(ok, status, data = null, error = null) {
 
 
 // Ejecuta una operación simulando una petición HTTP.
-async function apiSolicitar(operacion) {
+async function apiSolicitar(operacion, statusExito = 200) {
     await apiEsperar();
 
     try {
-        // Permite provocar errores para probar la interfaz.
         if (localStorage.getItem(API_ERROR_KEY) === "true") {
-            throw new Error("Error simulado de conexión con la API.");
+            const error = new Error("Error simulado de conexión con la API.");
+            error.status = 500;
+            throw error;
         }
 
         const data = await operacion();
 
-        return apiRespuesta(true, 200, data, null);
+        return apiRespuesta(true, statusExito, data, null);
 
     } catch (error) {
         console.error("Error en la API de Cinebox:", error);
 
         return apiRespuesta(
             false,
-            500,
+            error.status || 500,
             null,
             error.message || "Ocurrió un error inesperado."
         );
@@ -117,7 +118,11 @@ function apiExigirSesion() {
     const usuario = sessionStorage.getItem("cineboxdCurrentUser");
 
     if (!usuario || !usuario.trim()) {
-        throw new Error("Debes iniciar sesión para realizar esta operación.");
+        const error = new Error(
+            "Debes iniciar sesión para realizar esta operación."
+        );
+        error.status = 401;
+        throw error;
     }
 
     return usuario;
@@ -196,9 +201,17 @@ async function obtenerPeliculaPorId(id) {
     return apiSolicitar(async () => {
         const peliculas = await apiCargarRecurso("peliculas");
 
-        return peliculas.find(
+        const pelicula = peliculas.find(
             pelicula => pelicula.id === Number(id)
-        ) || null;
+        );
+
+        if (!pelicula) {
+            const error = new Error("No se encontró la película.");
+            error.status = 404;
+            throw error;
+        }
+
+        return pelicula;
     });
 }
 
@@ -257,7 +270,7 @@ async function crearPelicula(nuevaPelicula) {
         apiGuardarLocal(API_CLAVES.peliculas, peliculas);
 
         return nuevaPelicula;
-    });
+    }, 201);
 }
 
 
@@ -271,7 +284,9 @@ async function actualizarPelicula(id, cambios) {
         );
 
         if (indice === -1) {
-            throw new Error("No se encontró la película.");
+            const error = new Error("No se encontró la película.");
+            error.status = 404;
+            throw error;
         }
 
         peliculas[indice] = {
@@ -297,9 +312,10 @@ async function eliminarPelicula(id) {
         );
 
         if (nuevasPeliculas.length === peliculas.length) {
-            throw new Error("No se encontró la película.");
+            const error = new Error("No se encontró la película.");
+            error.status = 404;
+            throw error;
         }
-
         apiGuardarLocal(API_CLAVES.peliculas, nuevasPeliculas);
 
         return { id: Number(id) };
@@ -327,7 +343,7 @@ async function crearUsuario(nuevoUsuario) {
         apiGuardarLocal(API_CLAVES.usuarios, usuarios);
 
         return nuevoUsuario;
-    });
+    }, 201);
 }
 
 
@@ -488,7 +504,7 @@ async function crearResena(idPelicula, texto) {
         apiGuardarLocal(clave, resenas);
 
         return nuevaResena;
-    });
+    }, 201);
 }
 
 
@@ -509,7 +525,9 @@ async function editarResena(idPelicula, idResena, nuevoTexto) {
         );
 
         if (indice === -1) {
-            throw new Error("No se encontró la reseña.");
+            const error = new Error("No se encontró la reseña.");
+            error.status = 404;
+            throw error;
         }
 
         if (resenas[indice].usuario !== usuario) {
@@ -538,7 +556,9 @@ async function eliminarResena(idPelicula, idResena) {
         );
 
         if (indice === -1) {
-            throw new Error("No se encontró la reseña.");
+            const error = new Error("No se encontró la reseña.");
+            error.status = 404;
+            throw error;
         }
 
         if (resenas[indice].usuario !== usuario) {
