@@ -63,13 +63,27 @@ async function register(event) {
     const message = document.getElementById("message");
     const submitButton = form.querySelector("button[type='submit']");
 
-    if (!username || !password || !repeatPassword) {
-        showMessage(message, "Completa todos los campos.", "red");
+    if (!username) {
+        showMessage(message, "Ingresa un nombre de usuario.", "red");
+        document.getElementById("create-username").focus();
+        return;
+    }
+
+    if (!password) {
+        showMessage(message, "Ingresa una contraseña.", "red");
+        document.getElementById("create-password").focus();
+        return;
+    }
+
+    if (!repeatPassword) {
+        showMessage(message, "Repite tu contraseña.", "red");
+        document.getElementById("repeat-password").focus();
         return;
     }
 
     if (password !== repeatPassword) {
         showMessage(message, "Las contraseñas no coinciden.", "red");
+        document.getElementById("repeat-password").focus();
         return;
     }
 
@@ -109,8 +123,15 @@ async function login(event) {
     const message = document.getElementById("message");
     const submitButton = document.querySelector("#login-form button[type='submit']");
 
-    if (!username || !password) {
-        showMessage(message, "Ingresa tu usuario y contraseña.", "red");
+    if (!username) {
+        showMessage(message, "Ingresa tu nombre de usuario.", "red");
+        document.getElementById("username").focus();
+        return;
+    }
+
+    if (!password) {
+        showMessage(message, "Ingresa tu contraseña.", "red");
+        document.getElementById("password").focus();
         return;
     }
 
