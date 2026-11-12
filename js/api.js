@@ -353,10 +353,18 @@ async function obtenerListaUsuario(tipo, usuario = apiUsuarioActual()) {
         }
 
         const clave = apiClaveUsuario(API_CLAVES[tipo], usuario);
+        const lista = apiLeerLocal(clave, []);
 
-        const inicial = tipo === "vistas" ? [4, 5] : [6, 7];
+        if (tipo === "watchlist") {
+            const claveVistas = apiClaveUsuario(API_CLAVES.vistas, usuario);
+            const idsVistas = new Set(
+                apiLeerLocal(claveVistas, []).map(Number)
+            );
 
-        return apiLeerLocal(clave, [...inicial]);
+            return lista.filter(id => !idsVistas.has(Number(id)));
+        }
+
+        return lista;
     });
 }
 
@@ -376,8 +384,17 @@ async function guardarListaUsuario(tipo, ids, usuario = apiUsuarioActual()) {
 
         const clave = apiClaveUsuario(API_CLAVES[tipo], usuario);
         const idsUnicos = [...new Set(ids.map(Number))];
+        const tipoContrario = tipo === "vistas" ? "watchlist" : "vistas";
+        const claveContraria = apiClaveUsuario(
+            API_CLAVES[tipoContrario],
+            usuario
+        );
+        const idsActualizados = new Set(idsUnicos);
+        const idsContrarios = apiLeerLocal(claveContraria, [])
+            .filter(id => !idsActualizados.has(Number(id)));
 
         apiGuardarLocal(clave, idsUnicos);
+        apiGuardarLocal(claveContraria, idsContrarios);
 
         return idsUnicos;
     });
