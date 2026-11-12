@@ -131,6 +131,20 @@
   background: #444;
 }
 
+.cerrar-sesion-sitio {
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cerrar-sesion-sitio:hover {
+  background: #444;
+}
+
 @media (max-width: 700px) {
   .navegacion-sitio {
     align-items: stretch;

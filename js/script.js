@@ -8,6 +8,7 @@ function showMessage(message, text, color) {
 function updateSessionHeader() {
     const accessControls = document.querySelector("[data-auth-controls]");
     const usernameLabel = document.querySelector("[data-auth-user]");
+    const logoutButton = document.querySelector("[data-auth-logout]");
     const username = sessionStorage.getItem(CURRENT_USER_KEY);
 
     if (!accessControls || !usernameLabel) {
@@ -18,12 +19,19 @@ function updateSessionHeader() {
         accessControls.hidden = true;
         usernameLabel.textContent = username;
         usernameLabel.hidden = false;
+        if (logoutButton) logoutButton.hidden = false;
     } else {
         accessControls.hidden = false;
         usernameLabel.hidden = true;
         usernameLabel.textContent = "";
+        if (logoutButton) logoutButton.hidden = true;
     }
 }
+
+document.querySelector("[data-auth-logout]")?.addEventListener("click", () => {
+    sessionStorage.removeItem(CURRENT_USER_KEY);
+    window.location.href = "index.html";
+});
 
 function protectPrivateView() {
     if (document.body.dataset.private === undefined) {

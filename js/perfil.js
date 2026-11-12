@@ -268,12 +268,6 @@ async function cargarPerfil() {
     }
 }
 
-// Cerrar sesión.
-document.getElementById("cerrar-sesion")?.addEventListener("click", () => {
-    sessionStorage.removeItem("cineboxdCurrentUser");
-    window.location.href = "index.html";
-});
-
 // Control de pestañas.
 document.querySelectorAll("[data-tab]").forEach(tab => {
     tab.addEventListener("click", () => {
