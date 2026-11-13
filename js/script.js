@@ -43,15 +43,6 @@ function protectPrivateView() {
     }
 }
 
-async function hashPassword(password, salt) {
-    if (!window.crypto?.subtle) {
-        throw new Error("La autenticación requiere un contexto seguro. Abre el sitio con Live Server.");
-    }
-
-    const data = new TextEncoder().encode(`${salt}:${password}`);
-    const hash = await window.crypto.subtle.digest("SHA-256", data);
-    return Array.from(new Uint8Array(hash), byte => byte.toString(16).padStart(2, "0")).join("");
-}
 // Asistencia de IA: validación de campos y mensajes específicos de error.
 async function register(event) {
     event.preventDefault();
@@ -96,7 +87,7 @@ async function register(event) {
             byte => byte.toString(16).padStart(2, "0")
         ).join("");
 
-        const passwordHash = await hashPassword(password, salt);
+        const passwordHash = await apiHashPassword(password, salt);
         const respuesta = await crearUsuario({ username, salt, passwordHash });
 
         if (!respuesta.ok) {
@@ -114,6 +105,7 @@ async function register(event) {
         submitButton.textContent = "Registrarse";
     }
 }
+
 // Asistencia de IA: validación de usuario y contraseña.
 async function login(event) {
     event.preventDefault();
@@ -139,7 +131,7 @@ async function login(event) {
         submitButton.disabled = true;
         submitButton.textContent = "Validando...";
 
-        const respuesta = await obtenerUsuario(username);
+        const respuesta = await autenticarUsuario(username, password);
 
         if (!respuesta.ok) {
             showMessage(message, respuesta.error, "red");
@@ -147,11 +139,6 @@ async function login(event) {
         }
 
         const user = respuesta.data;
-
-        if (!user || await hashPassword(password, user.salt) !== user.passwordHash) {
-            showMessage(message, "Usuario o contraseña incorrectos.", "red");
-            return;
-        }
 
         sessionStorage.setItem(CURRENT_USER_KEY, user.username);
         showMessage(message, "Inicio de sesión correcto. Redirigiendo...", "green");

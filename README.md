@@ -67,26 +67,42 @@ La API es simulada: las cuentas y los cambios se guardan únicamente en el almac
 
 Las vistas acceden a los datos mediante `js/api.js`; no leen los archivos JSON directamente. La capa de servicios carga datos iniciales desde `mocks/`, simula latencia de red y responde con el formato `{ ok, status, data, error }`. Las escrituras se guardan en `localStorage`; `sessionStorage` conserva la sesión activa.
 
-| Función | Método | Ruta simulada | Uso |
-|---|---|---|---|
-| `obtenerPeliculas()` | GET | `/api/peliculas` | Catálogo y búsqueda |
-| `obtenerPeliculaPorId(id)` | GET | `/api/peliculas/:id` | Detalle de película |
-| `crearPelicula(datos)` | POST | `/api/peliculas` | Crear película |
-| `actualizarPelicula(id, cambios)` | PUT | `/api/peliculas/:id` | Actualizar película |
-| `eliminarPelicula(id)` | DELETE | `/api/peliculas/:id` | Eliminar película |
-| `obtenerUsuarios()` | GET | `/api/usuarios` | Lista de usuarios |
-| `obtenerUsuario(username)` | GET | `/api/usuarios/:username` | Buscar usuario para iniciar sesión |
-| `crearUsuario(datos)` | POST | `/api/usuarios` | Registrar usuario |
-| `obtenerAmigos()` | GET | `/api/amigos` | Vista de amigos |
-| `obtenerActividad()` | GET | `/api/actividad` | Inicio y notificaciones |
-| `obtenerListaUsuario(tipo)` | GET | `/api/usuarios/:usuario/:tipo` | Consultar vistas o watchlist |
-| `guardarListaUsuario(tipo, ids)` | PUT | `/api/usuarios/:usuario/:tipo` | Guardar vistas o watchlist |
-| `obtenerPuntuaciones()` | GET | `/api/puntuaciones` | Consultar puntuaciones |
-| `guardarPuntuacion(id, valor)` | POST | `/api/peliculas/:id/puntuaciones` | Puntuar película |
-| `obtenerResenas(id)` | GET | `/api/peliculas/:id/resenas` | Consultar reseñas de una película |
-| `crearResena(id, texto)` | POST | `/api/peliculas/:id/resenas` | Publicar reseña |
-| `editarResena(id, idResena, texto)` | PUT | `/api/peliculas/:id/resenas/:idResena` | Editar reseña |
-| `eliminarResena(id, idResena)` | DELETE | `/api/peliculas/:id/resenas/:idResena` | Eliminar reseña |
-| `obtenerResenasUsuario(usuario)` | GET | `/api/usuarios/:usuario/resenas` | Consultar reseñas del perfil autenticado |
+| Función | Método | Ruta simulada | Uso | Status |
+|---|---|---|---|---|
+| `obtenerPeliculas()` | GET | `/api/peliculas` | Catálogo y búsqueda | 200 |
+| `obtenerPeliculaPorId(id)` | GET | `/api/peliculas/:id` | Detalle de película | 200 / 404 si no existe |
+| `crearPelicula(datos)` | POST | `/api/peliculas` | Crear película | 201 |
+| `actualizarPelicula(id, cambios)` | PUT | `/api/peliculas/:id` | Actualizar película | 200 / 404 si no existe |
+| `eliminarPelicula(id)` | DELETE | `/api/peliculas/:id` | Eliminar película | 200 / 404 si no existe |
+| `obtenerUsuarios()` | GET | `/api/usuarios` | Lista de usuarios | 200 |
+| `obtenerUsuario(username)` | GET | `/api/usuarios/:username` | Buscar usuario | 200 |
+| `autenticarUsuario(username, password)` | POST | `/api/sesion` | Iniciar sesión | 200 / 401 si las credenciales son inválidas |
+| `crearUsuario(datos)` | POST | `/api/usuarios` | Registrar usuario | 201 |
+| `obtenerAmigos()` | GET | `/api/amigos` | Vista de amigos | 200 |
+| `obtenerActividad()` | GET | `/api/actividad` | Inicio y notificaciones | 200 |
+| `obtenerListaUsuario(tipo)` | GET | `/api/usuarios/:usuario/:tipo` | Consultar vistas o watchlist | 200 |
+| `guardarListaUsuario(tipo, ids)` | PUT | `/api/usuarios/:usuario/:tipo` | Guardar vistas o watchlist | 200 / 401 si no hay sesión |
+| `obtenerPuntuaciones()` | GET | `/api/puntuaciones` | Consultar puntuaciones | 200 |
+| `guardarPuntuacion(id, valor)` | POST | `/api/peliculas/:id/puntuaciones` | Puntuar película | 200 / 401 si no hay sesión |
+| `obtenerResenas(id)` | GET | `/api/peliculas/:id/resenas` | Consultar reseñas de una película | 200 |
+| `crearResena(id, texto)` | POST | `/api/peliculas/:id/resenas` | Publicar reseña | 201 / 401 si no hay sesión |
+| `editarResena(id, idResena, texto)` | PUT | `/api/peliculas/:id/resenas/:idResena` | Editar reseña | 200 / 401 si no hay sesión / 404 si no existe |
+| `eliminarResena(id, idResena)` | DELETE | `/api/peliculas/:id/resenas/:idResena` | Eliminar reseña | 200 / 401 si no hay sesión / 404 si no existe |
+| `obtenerResenasUsuario(usuario)` | GET | `/api/usuarios/:usuario/resenas` | Consultar reseñas del perfil autenticado | 200 / 401 si no hay sesión |
 
-Para probar el estado de error, se debe ejecutar `apiActivarError()` en la consola del navegador. Para restaurar las solicitudes, se debe ejecutar `apiDesactivarError()`.
+Para probar los errores, se debe abrir las herramientas del navegador (F12 => Consola) desde una página que cargue js/api.js, como login.html o pelicula.html y ejecutar:
+
+`obtenerPeliculaPorId(999999).then(respuesta => console.log(respuesta))`
+
+para ver el 404, o 
+
+`autenticarUsuario("usuario-inexistente", "clave").then(respuesta => console.log(respuesta))`
+
+para ver el 401 por credenciales inválidas.
+
+Para probar el error simulado 500, hay que ejecutar:
+
+`apiActivarError(); obtenerPeliculas().then(respuesta => { console.log(respuesta); apiDesactivarError(); });`
+
+Se restaurará el estado original de la API al terminar.
+
