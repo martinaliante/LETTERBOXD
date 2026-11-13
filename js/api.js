@@ -61,6 +61,22 @@ function apiRespuesta(ok, status, data = null, error = null) {
     };
 }
 
+function apiCrearError(mensaje, status) {
+    const error = new Error(mensaje);
+    error.status = status;
+    return error;
+}
+
+async function apiHashPassword(password, salt) {
+    if (!window.crypto?.subtle) {
+        throw new Error("La autenticación requiere un contexto seguro. Abre el sitio con Live Server.");
+    }
+
+    const data = new TextEncoder().encode(`${salt}:${password}`);
+    const hash = await window.crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hash), byte => byte.toString(16).padStart(2, "0")).join("");
+}
+
 
 // Ejecuta una operación simulando una petición HTTP.
 async function apiSolicitar(operacion, statusExito = 200) {
@@ -68,9 +84,7 @@ async function apiSolicitar(operacion, statusExito = 200) {
 
     try {
         if (localStorage.getItem(API_ERROR_KEY) === "true") {
-            const error = new Error("Error simulado de conexión con la API.");
-            error.status = 500;
-            throw error;
+            throw apiCrearError("Error simulado de conexión con la API.", 500);
         }
 
         const data = await operacion();
@@ -82,9 +96,9 @@ async function apiSolicitar(operacion, statusExito = 200) {
 
         return apiRespuesta(
             false,
-            error.status || 500,
+            error && Number.isInteger(error.status) ? error.status : 500,
             null,
-            error.message || "Ocurrió un error inesperado."
+            error && error.message || "Ocurrió un error inesperado."
         );
     }
 }
@@ -118,11 +132,10 @@ function apiExigirSesion() {
     const usuario = sessionStorage.getItem("cineboxdCurrentUser");
 
     if (!usuario || !usuario.trim()) {
-        const error = new Error(
-            "Debes iniciar sesión para realizar esta operación."
+        throw apiCrearError(
+            "Debes iniciar sesión para realizar esta operación.",
+            401
         );
-        error.status = 401;
-        throw error;
     }
 
     return usuario;
@@ -206,9 +219,7 @@ async function obtenerPeliculaPorId(id) {
         );
 
         if (!pelicula) {
-            const error = new Error("No se encontró la película.");
-            error.status = 404;
-            throw error;
+            throw apiCrearError("No se encontró la película.", 404);
         }
 
         return pelicula;
@@ -284,9 +295,7 @@ async function actualizarPelicula(id, cambios) {
         );
 
         if (indice === -1) {
-            const error = new Error("No se encontró la película.");
-            error.status = 404;
-            throw error;
+            throw apiCrearError("No se encontró la película.", 404);
         }
 
         peliculas[indice] = {
@@ -312,9 +321,7 @@ async function eliminarPelicula(id) {
         );
 
         if (nuevasPeliculas.length === peliculas.length) {
-            const error = new Error("No se encontró la película.");
-            error.status = 404;
-            throw error;
+            throw apiCrearError("No se encontró la película.", 404);
         }
         apiGuardarLocal(API_CLAVES.peliculas, nuevasPeliculas);
 
@@ -355,6 +362,21 @@ async function obtenerUsuario(username) {
         return usuarios.find(usuario =>
             usuario.username.toLowerCase() === username.toLowerCase()
         ) || null;
+    });
+}
+
+async function autenticarUsuario(username, password) {
+    return apiSolicitar(async () => {
+        const usuarios = await apiCargarRecurso("usuarios");
+        const usuario = usuarios.find(
+            usuario => usuario.username.toLowerCase() === username.toLowerCase()
+        );
+
+        if (!usuario || await apiHashPassword(password, usuario.salt) !== usuario.passwordHash) {
+            throw apiCrearError("Usuario o contraseña incorrectos.", 401);
+        }
+
+        return usuario;
     });
 }
 
@@ -525,9 +547,7 @@ async function editarResena(idPelicula, idResena, nuevoTexto) {
         );
 
         if (indice === -1) {
-            const error = new Error("No se encontró la reseña.");
-            error.status = 404;
-            throw error;
+            throw apiCrearError("No se encontró la reseña.", 404);
         }
 
         if (resenas[indice].usuario !== usuario) {
@@ -556,9 +576,7 @@ async function eliminarResena(idPelicula, idResena) {
         );
 
         if (indice === -1) {
-            const error = new Error("No se encontró la reseña.");
-            error.status = 404;
-            throw error;
+            throw apiCrearError("No se encontró la reseña.", 404);
         }
 
         if (resenas[indice].usuario !== usuario) {

@@ -559,19 +559,19 @@ async function cargarPelicula() {
     detalle.replaceChildren();
 
     try {
-        // La API devuelve un objeto; las películas están en respuesta.data.
-        const respuesta = await obtenerPeliculas();
+        // La API devuelve la película en respuesta.data.
+        const respuesta = await obtenerPeliculaPorId(id);
 
         if (!respuesta.ok) {
+            if (respuesta.status === 404) {
+                window.location.replace("404.html");
+                return;
+            }
+
             throw new Error(respuesta.error);
         }
 
-        const pelicula = respuesta.data.find(item => item.id === id);
-
-        if (!pelicula) {
-            window.location.replace("404.html");
-            return;
-        }
+        const pelicula = respuesta.data;
 
         document.title = `${pelicula.titulo} - Cinebox`;
 
