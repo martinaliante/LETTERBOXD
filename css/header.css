@@ -202,3 +202,12 @@
     gap: 10px 16px;
   }
 }
+
+/foco visible al navegar con teclado */
+.cabecera-sitio a:focus-visible,
+.cabecera-sitio button:focus-visible,
+.cabecera-sitio input:focus-visible {
+  outline: 3px solid #ffbf47;
+  outline-offset: 3px;
+  border-radius: 4px;
+}

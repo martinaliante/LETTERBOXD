@@ -392,10 +392,14 @@ async function renderizarPelicula(pelicula) {
         crearElemento("h2", "Puntuar película", "text-xl font-bold")
     );
 
-    const selector = document.createElement("select");
-    selector.className = "w-full max-w-xl rounded-md border border-gray-300 p-2.5 font-inherit";
-    selector.name = "puntuacion";
-    selector.required = true;
+    const etiquetaSelector = crearElemento("label", "Selecciona tu puntuación:");
+etiquetaSelector.htmlFor = "puntuacion-pelicula";
+
+const selector = document.createElement("select");
+selector.id = "puntuacion-pelicula";
+selector.className = "w-full max-w-xl rounded-md border border-gray-300 p-2.5 font-inherit";
+selector.name = "puntuacion";
+selector.required = true;
 
     selector.innerHTML = '<option value="">Elige una puntuación</option>' +
         [1, 2, 3, 4, 5].map(valor =>
@@ -412,7 +416,7 @@ async function renderizarPelicula(pelicula) {
 
     botonPuntuar.type = "submit";
 
-    formulario.append(selector, botonPuntuar);
+    formulario.append(etiquetaSelector, selector, botonPuntuar);
 
     // Guardar la puntuación mediante la API.
     formulario.addEventListener("submit", async event => {
@@ -467,9 +471,13 @@ async function renderizarPelicula(pelicula) {
 
     const formularioResena = crearElemento("form", "", "mt-6 grid max-w-xl gap-3");
 
-    const texto = document.createElement("textarea");
-    texto.className = "w-full max-w-xl rounded-md border border-gray-300 p-2.5 font-inherit";
-    texto.name = "resena";
+   const etiquetaResena = crearElemento("label", "Escribe tu reseña:");
+etiquetaResena.htmlFor = "texto-resena";
+
+const texto = document.createElement("textarea");
+texto.id = "texto-resena";
+texto.className = "w-full max-w-xl rounded-md border border-gray-300 p-2.5 font-inherit";
+texto.name = "resena";
     texto.rows = 4;
     texto.required = false;
     texto.placeholder = "Escribe una reseña (opcional)...";
@@ -482,7 +490,7 @@ async function renderizarPelicula(pelicula) {
 
     botonResena.type = "submit";
 
-    formularioResena.append(texto, botonResena);
+    formularioResena.append(etiquetaResena, texto, botonResena);
 
     const listaResenas = crearElemento("ul", "", "mt-3 grid list-none gap-3 p-0");
 
